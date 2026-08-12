@@ -1,965 +1,792 @@
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #f6f7f8;
-  color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-button,
-input,
-select {
-  font-family: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-
-/* =====================================================
-   APP
-===================================================== */
-
-.app {
-  width: 100%;
-  min-height: 100vh;
-  background: #f6f7f8;
-  padding-bottom: 0;
-}
-
-
-/* =====================================================
-   TOP BAR
-===================================================== */
-
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 260px;
-  right: 0;
-  height: 82px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#171a1f">
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="My Store"
+  >
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  <title>My Store POS</title>
 
-  padding: 0 32px;
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
 
-  background: white;
-  border-bottom: 1px solid #e8e8e8;
-
-  z-index: 900;
-}
-
-.small-label {
-  color: #888;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.3px;
-}
+<body>
 
-.topbar h1 {
-  margin: 4px 0 0;
-  font-size: 20px;
-}
-
-.profile-circle {
-  width: 42px;
-  height: 42px;
-
-  border-radius: 50%;
+<div class="app-shell">
 
-  background: #171717;
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: bold;
-}
-
-
-/* =====================================================
-   PAGES
-===================================================== */
-
-main {
-  margin-left: 260px;
-  padding-top: 82px;
-  min-height: 100vh;
-}
-
-.page {
-  display: none;
-  padding: 30px;
-  max-width: 1100px;
-}
+  <!-- ========================= -->
+  <!-- SIDEBAR -->
+  <!-- ========================= -->
 
-.page.active {
-  display: block;
-}
+  <aside class="sidebar">
 
+    <div class="brand">
 
-/* =====================================================
-   WELCOME
-===================================================== */
+      <div class="brand-icon">🛍️</div>
 
-.welcome {
-  margin: 5px 0 22px;
-}
+      <div class="brand-info">
+        <div class="small-label">BUSINESS MANAGER</div>
+        <h1 id="appStoreName">My Store</h1>
+      </div>
 
-.welcome p {
-  margin: 0;
-  color: #777;
-  font-size: 14px;
-}
+      <div class="profile-circle" id="profileLetter">M</div>
 
-.welcome h2 {
-  margin: 5px 0;
-  font-size: 30px;
-}
+    </div>
 
+    <div class="sidebar-line"></div>
 
-/* =====================================================
-   SALES CARD
-===================================================== */
+    <nav class="side-nav">
 
-.sales-card {
-  padding: 26px;
-  border-radius: 18px;
+      <button
+        class="side-item active"
+        onclick="openPage('homePage', this)"
+      >
+        <span>⌂</span>
+        <strong>Home</strong>
+      </button>
 
-  background: #171717;
-  color: white;
+      <button
+        class="side-item"
+        onclick="openPage('productsPage', this)"
+      >
+        <span>◇</span>
+        <strong>Inventory</strong>
+      </button>
 
-  margin-bottom: 16px;
+      <button
+        class="side-item"
+        onclick="openPage('salePage', this)"
+      >
+        <span>🛒</span>
+        <strong>New Sale</strong>
+      </button>
 
-  box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
-}
+      <button
+        class="side-item"
+        onclick="openPage('customersPage', this)"
+      >
+        <span>♙</span>
+        <strong>Customers</strong>
+      </button>
 
-.sales-card span {
-  color: #aaa;
-  font-size: 13px;
-}
+      <button
+        class="side-item"
+        onclick="openPage('salesPage', this)"
+      >
+        <span>▥</span>
+        <strong>Sales History</strong>
+      </button>
 
-.sales-card strong {
-  display: block;
-  margin: 8px 0;
-  font-size: 34px;
-}
+      <button
+        class="side-item"
+        onclick="openPage('settingsPage', this)"
+      >
+        <span>⚙</span>
+        <strong>Settings</strong>
+      </button>
 
-.sales-card small {
-  color: #aaa;
-}
+    </nav>
 
+    <div class="offline-card">
 
-/* =====================================================
-   STATS
-===================================================== */
+      <div class="offline-dot"></div>
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
+      <div>
+        <strong>Offline Mode</strong>
+        <small>All data is saved locally</small>
+      </div>
 
-.stat-card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
+      <span class="offline-icon">☁</span>
 
-  border: 1px solid #ededed;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, .03);
-}
+    </div>
 
-.stat-card span {
-  color: #777;
-  font-size: 12px;
-}
+  </aside>
 
-.stat-card strong {
-  display: block;
-  margin-top: 7px;
-  font-size: 26px;
-}
 
+  <!-- ========================= -->
+  <!-- MAIN AREA -->
+  <!-- ========================= -->
 
-/* =====================================================
-   ACTION
-===================================================== */
+  <main class="main-area">
 
-.primary-action {
-  width: 100%;
 
-  border: 0;
-  border-radius: 13px;
+    <!-- ========================= -->
+    <!-- HOME -->
+    <!-- ========================= -->
 
-  padding: 16px;
-  margin-top: 15px;
+    <section
+      id="homePage"
+      class="page active"
+    >
 
-  background: #171717;
-  color: white;
+      <div class="desktop-home">
 
-  font-size: 14px;
-  font-weight: 700;
-}
+        <!-- DASHBOARD -->
 
-.primary-action:hover {
-  opacity: .92;
-}
+        <div class="dashboard-column">
 
-.primary-action:active {
-  transform: scale(.99);
-}
+          <div class="welcome">
 
+            <p>Good day 👋</p>
 
-/* =====================================================
-   SECTION TITLE
-===================================================== */
+            <h2>
+              Here's your business overview
+            </h2>
 
-.section-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+          </div>
 
-  margin: 26px 0 12px;
-}
 
-.section-title h3 {
-  margin: 0;
-  font-size: 17px;
-}
+          <!-- SALES CARD -->
 
+          <div class="sales-card">
 
-/* =====================================================
-   QUICK ACTIONS
-===================================================== */
+            <div>
+              <span>Today's sales</span>
 
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
+              <strong id="salesTotal">
+                ₦0
+              </strong>
 
-.quick-grid button {
-  border: 1px solid #ededed;
-  border-radius: 15px;
+              <small>
+                Sales recorded today
+              </small>
+            </div>
 
-  padding: 20px 12px;
+            <div class="sales-icon">
+              ▥
+            </div>
 
-  background: white;
-  color: #222;
+          </div>
 
-  font-size: 13px;
-  text-align: left;
 
-  transition: .2s;
-}
+          <!-- STATS -->
 
-.quick-grid button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 20px rgba(0, 0, 0, .06);
-}
+          <div class="stats-grid">
 
-.quick-grid span {
-  display: block;
-  font-size: 22px;
-  margin-bottom: 9px;
-}
+            <div class="stat-card">
 
+              <div class="stat-icon green">
+                ◇
+              </div>
 
-/* =====================================================
-   PAGE HEADER
-===================================================== */
+              <div>
+                <span>Products</span>
 
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+                <strong id="productCount">
+                  0
+                </strong>
 
-  margin-bottom: 18px;
-}
+                <small>Total in inventory</small>
+              </div>
 
-.page-header h2 {
-  margin: 4px 0 0;
-  font-size: 28px;
-}
+            </div>
 
-.small-button {
-  border: 0;
-  border-radius: 10px;
 
-  padding: 10px 15px;
+            <div class="stat-card">
 
-  background: #171717;
-  color: white;
+              <div class="stat-icon orange">
+                ↘
+              </div>
 
-  font-weight: 600;
-}
+              <div>
+                <span>Low stock</span>
 
+                <strong id="lowStock">
+                  0
+                </strong>
 
-/* =====================================================
-   INPUTS
-===================================================== */
+                <small>Items running low</small>
+              </div>
 
-.search,
-input,
-select {
-  width: 100%;
-  height: 50px;
+            </div>
 
-  padding: 0 14px;
 
-  border: 1px solid #e2e2e2;
-  border-radius: 12px;
+            <div class="stat-card">
 
-  background: white;
+              <div class="stat-icon blue">
+                ▤
+              </div>
 
-  outline: none;
+              <div>
+                <span>Transactions</span>
 
-  font-size: 14px;
+                <strong id="transactionCount">
+                  0
+                </strong>
 
-  margin-bottom: 10px;
-}
+                <small>Total sales made</small>
+              </div>
 
-.search:focus,
-input:focus,
-select:focus {
-  border-color: #171717;
-}
+            </div>
 
 
-/* =====================================================
-   FORM BOX
-===================================================== */
+            <div class="stat-card">
 
-.form-box {
-  background: white;
+              <div class="stat-icon purple">
+                ♟
+              </div>
 
-  padding: 20px;
+              <div>
+                <span>Customers</span>
 
-  border-radius: 16px;
+                <strong id="customerCount">
+                  0
+                </strong>
 
-  margin: 15px 0;
+                <small>Total customers</small>
+              </div>
 
-  border: 1px solid #ededed;
-}
+            </div>
 
-.form-box h3 {
-  margin: 0 0 14px;
-  font-size: 16px;
-}
+          </div>
 
 
-/* =====================================================
-   PRODUCTS
-===================================================== */
+          <button
+            class="record-sale-button"
+            onclick="openPage('salePage')"
+          >
+            🛒 &nbsp; + Record New Sale
+          </button>
 
-#productList {
-  margin-top: 14px;
-}
 
-.product-card {
-  background: white;
+          <!-- QUICK ACTIONS -->
 
-  border-radius: 15px;
+          <div class="quick-title">
+            <h3>Quick actions</h3>
+          </div>
 
-  padding: 18px;
+          <div class="quick-grid">
 
-  margin-bottom: 10px;
+            <button onclick="openPage('productsPage')">
+              <span class="quick-icon green">◇</span>
+              <strong>Inventory</strong>
+              <small>Manage products</small>
+            </button>
 
-  border: 1px solid #ededed;
-}
+            <button onclick="openPage('salePage')">
+              <span class="quick-icon blue">🛒</span>
+              <strong>New Sale</strong>
+              <small>Make a sale</small>
+            </button>
 
-.product-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+            <button onclick="openPage('customersPage')">
+              <span class="quick-icon purple">♟</span>
+              <strong>Customers</strong>
+              <small>View customers</small>
+            </button>
 
-.product-name {
-  font-weight: 700;
-}
+            <button onclick="openPage('salesPage')">
+              <span class="quick-icon orange">▥</span>
+              <strong>Sales</strong>
+              <small>View reports</small>
+            </button>
 
-.product-price {
-  margin-top: 7px;
-  color: #555;
-  font-size: 13px;
-}
+          </div>
 
-.stock {
-  margin-top: 10px;
-  font-size: 12px;
-}
+        </div>
 
-.stock.low {
-  color: #d43d3d;
-  font-weight: bold;
-}
 
-.stock.good {
-  color: #23844a;
-}
+        <!-- DESKTOP SALE PANEL -->
 
+        <div class="sale-panel">
 
-/* =====================================================
-   SALE PRODUCTS
-===================================================== */
+          <div class="panel-title">
 
-.sale-product {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+            <span class="small-label">
+              SALES
+            </span>
 
-  gap: 12px;
+            <h2>New Sale</h2>
 
-  background: white;
+          </div>
 
-  padding: 16px;
 
-  margin: 8px 0;
+          <input
+            id="homeProductSearch"
+            class="search"
+            type="text"
+            placeholder="⌕  Search product..."
+          >
 
-  border-radius: 14px;
 
-  border: 1px solid #ededed;
-}
+          <select id="homeSaleType">
 
-.sale-product-info strong {
-  display: block;
-}
+            <option value="retail">
+              Retail price
+            </option>
 
-.sale-product-info small {
-  color: #777;
-}
+            <option value="wholesale">
+              Wholesale price
+            </option>
 
-.add-button {
-  border: 0;
-  border-radius: 10px;
+          </select>
 
-  padding: 10px 13px;
 
-  background: #171717;
-  color: white;
+          <div
+            id="homeSaleProducts"
+            class="home-sale-products"
+          ></div>
 
-  font-weight: 600;
-}
 
+          <!-- HOME CART -->
 
-/* =====================================================
-   CART
-===================================================== */
+          <div class="home-cart">
 
-.cart-box {
-  margin-top: 18px;
-}
+            <div class="home-cart-header">
 
-.cart-item {
-  background: white;
+              <strong>Cart</strong>
 
-  border-radius: 14px;
+              <strong id="homeCartTotal">
+                Total: ₦0
+              </strong>
 
-  padding: 15px;
+            </div>
 
-  margin-bottom: 8px;
+            <div
+              id="homeCart"
+              class="home-cart-body"
+            >
 
-  border: 1px solid #ededed;
-}
+              <div class="cart-empty-icon">
+                🛒
+              </div>
 
-.cart-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+              <strong>Your cart is empty</strong>
 
-.quantity-controls {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-}
+              <small>
+                Add products to get started
+              </small>
 
-.quantity-controls button {
-  border: 0;
-  border-radius: 8px;
+            </div>
 
-  background: #eee;
+          </div>
 
-  padding: 7px 12px;
-}
+        </div>
 
+      </div>
 
-/* =====================================================
-   RECEIPT
-===================================================== */
+    </section>
 
-.receipt {
-  display: none;
 
-  background: white;
+    <!-- ========================= -->
+    <!-- INVENTORY -->
+    <!-- ========================= -->
 
-  border-radius: 16px;
+    <section
+      id="productsPage"
+      class="page"
+    >
 
-  padding: 22px;
+      <div class="page-header">
 
-  margin-top: 15px;
+        <div>
+          <span class="small-label">INVENTORY</span>
+          <h2>Products</h2>
+        </div>
 
-  border: 1px solid #ededed;
-}
+        <button
+          class="small-button"
+          onclick="showAddProduct()"
+        >
+          + Add Product
+        </button>
 
-.receipt h2 {
-  text-align: center;
-}
+      </div>
 
-.receipt p {
-  text-align: center;
-  font-size: 13px;
-}
 
-.receipt-line {
-  display: flex;
-  justify-content: space-between;
+      <input
+        id="inventorySearch"
+        class="search"
+        type="text"
+        placeholder="⌕  Search products..."
+      >
 
-  margin: 9px 0;
-}
 
-.receipt-total {
-  border-top: 1px dashed #aaa;
+      <div
+        id="addProductBox"
+        class="form-box hidden"
+      >
 
-  padding-top: 12px;
-  margin-top: 12px;
+        <h3>Add product</h3>
 
-  font-weight: bold;
-}
+        <input
+          id="productName"
+          placeholder="Product name"
+        >
 
+        <input
+          id="productRetailPrice"
+          type="number"
+          placeholder="Retail price ₦"
+        >
 
-/* =====================================================
-   HISTORY
-===================================================== */
+        <input
+          id="productWholesalePrice"
+          type="number"
+          placeholder="Wholesale price ₦"
+        >
 
-.history-card {
-  background: white;
+        <input
+          id="productStock"
+          type="number"
+          placeholder="Quantity"
+        >
 
-  padding: 17px;
+        <button
+          class="primary-action"
+          id="addProductButton"
+        >
+          Save Product
+        </button>
 
-  border-radius: 15px;
+      </div>
 
-  margin-bottom: 9px;
 
-  border: 1px solid #ededed;
-}
+      <div id="productList"></div>
 
-.history-card strong {
-  font-size: 14px;
-}
+    </section>
 
-.history-card small {
-  display: block;
 
-  color: #777;
+    <!-- ========================= -->
+    <!-- NEW SALE -->
+    <!-- ========================= -->
 
-  margin-top: 5px;
-}
+    <section
+      id="salePage"
+      class="page"
+    >
 
+      <div class="page-header">
 
-/* =====================================================
-   EMPTY
-===================================================== */
+        <div>
+          <span class="small-label">SALES</span>
+          <h2>New Sale</h2>
+        </div>
 
-.empty {
-  padding: 25px;
+      </div>
 
-  text-align: center;
 
-  color: #999;
+      <input
+        id="productSearch"
+        class="search"
+        placeholder="⌕  Search product..."
+      >
 
-  background: white;
 
-  border-radius: 15px;
-}
+      <select id="saleType">
 
+        <option value="retail">
+          Retail price
+        </option>
 
-/* =====================================================
-   HIDDEN
-===================================================== */
+        <option value="wholesale">
+          Wholesale price
+        </option>
 
-.hidden {
-  display: none;
-}
+      </select>
 
 
-/* =====================================================
-   DESKTOP SIDEBAR
-===================================================== */
+      <div id="saleProducts"></div>
 
-.bottom-nav {
-  position: fixed;
 
-  z-index: 1000;
+      <div class="cart-box">
 
-  top: 0;
-  bottom: 0;
-  left: 0;
+        <div class="section-title">
 
-  width: 260px;
+          <h3>Cart</h3>
 
-  padding: 105px 15px 20px;
+          <span id="cartTotal">
+            ₦0
+          </span>
 
-  background: #171717;
+        </div>
 
-  display: flex;
-  flex-direction: column;
+        <div id="cart">
+          <p class="empty">
+            Cart is empty.
+          </p>
+        </div>
 
-  justify-content: flex-start;
-  align-items: stretch;
+      </div>
 
-  gap: 7px;
 
-  border: 0;
-}
+      <div class="form-box">
 
-.nav-item {
-  width: 100%;
+        <h3>Customer</h3>
 
-  min-height: 52px;
+        <input
+          id="customerName"
+          placeholder="Customer name"
+        >
 
-  border: 0;
-  border-radius: 12px;
+        <input
+          id="customerPhone"
+          type="tel"
+          placeholder="Customer phone"
+        >
 
-  background: transparent;
+      </div>
 
-  color: #999;
 
-  font-size: 13px;
+      <div class="form-box">
 
-  text-align: left;
+        <h3>Payment</h3>
 
-  padding: 0 18px;
+        <select id="paymentMethod">
 
-  display: flex;
-  align-items: center;
+          <option value="Cash">Cash</option>
 
-  gap: 13px;
+          <option value="ATM / Card">
+            ATM / Card
+          </option>
 
-  transition: .2s;
-}
+          <option value="POS">
+            POS
+          </option>
 
-.nav-item span {
-  display: inline-block;
+          <option value="Bank Transfer">
+            Bank Transfer
+          </option>
 
-  font-size: 21px;
+          <option value="Other">
+            Other
+          </option>
 
-  margin: 0;
+        </select>
 
-  width: 25px;
+        <input
+          id="amountPaid"
+          type="number"
+          placeholder="Amount paid ₦"
+        >
 
-  text-align: center;
-}
+        <div id="changeDisplay"></div>
 
-.nav-item:hover {
-  background: #242424;
-  color: white;
-}
+        <button
+          id="completeSaleButton"
+          class="primary-action"
+        >
+          Complete Sale
+        </button>
 
-.nav-item.active {
-  background: #292929;
-  color: white;
-  font-weight: bold;
-}
+      </div>
 
 
-/* SALE BUTTON */
+      <div
+        id="receipt"
+        class="receipt"
+      ></div>
 
-.nav-sale {
-  width: 100%;
-  height: 52px;
+    </section>
 
-  min-height: 52px;
 
-  border: 0;
+    <!-- ========================= -->
+    <!-- CUSTOMERS -->
+    <!-- ========================= -->
 
-  border-radius: 12px;
+    <section
+      id="customersPage"
+      class="page"
+    >
 
-  background: #242424;
+      <div class="page-header">
 
-  color: white;
+        <div>
+          <span class="small-label">CUSTOMERS</span>
+          <h2>Customers</h2>
+        </div>
 
-  font-size: 14px;
+      </div>
 
-  font-weight: 600;
 
-  margin: 2px 0;
+      <input
+        id="customerSearch"
+        class="search"
+        placeholder="⌕  Search customer..."
+      >
 
-  order: 3;
-}
 
-.nav-sale::after {
-  content: " New Sale";
-}
+      <div id="customerHistory">
 
+        <p class="empty">
+          Search for a customer to view history.
+        </p>
 
-/* =====================================================
-   SIDEBAR ORDER
-===================================================== */
+      </div>
 
-.bottom-nav .nav-item:nth-child(1) {
-  order: 1;
-}
+    </section>
 
-.bottom-nav .nav-item:nth-child(2) {
-  order: 2;
-}
 
-.bottom-nav .nav-item:nth-child(4) {
-  order: 4;
-}
+    <!-- ========================= -->
+    <!-- SALES HISTORY -->
+    <!-- ========================= -->
 
-.bottom-nav .nav-item:nth-child(5) {
-  order: 5;
-}
+    <section
+      id="salesPage"
+      class="page"
+    >
 
-.bottom-nav .nav-item:nth-child(6) {
-  order: 6;
-}
+      <div class="page-header">
 
+        <div>
+          <span class="small-label">
+            BUSINESS ACTIVITY
+          </span>
 
-/* =====================================================
-   DESKTOP LAYOUT
-===================================================== */
+          <h2>Sales History</h2>
+        </div>
 
-@media (min-width: 900px) {
+      </div>
 
-  .page {
-    width: 100%;
-    max-width: 1180px;
-  }
+      <div id="salesHistory"></div>
 
-  #homePage {
-    max-width: 1150px;
-  }
+    </section>
 
-}
 
+    <!-- ========================= -->
+    <!-- SETTINGS -->
+    <!-- ========================= -->
 
-/* =====================================================
-   TABLET
-===================================================== */
+    <section
+      id="settingsPage"
+      class="page"
+    >
 
-@media (min-width: 700px) and (max-width: 899px) {
+      <div class="page-header">
 
-  .bottom-nav {
-    width: 220px;
-  }
+        <div>
+          <span class="small-label">BUSINESS</span>
+          <h2>Settings</h2>
+        </div>
 
-  .topbar {
-    left: 220px;
-  }
+      </div>
 
-  main {
-    margin-left: 220px;
-  }
 
-  .quick-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+      <div class="form-box">
 
-}
+        <h3>Seller / Business Information</h3>
 
+        <input
+          id="storeName"
+          placeholder="Business / Store name"
+        >
 
-/* =====================================================
-   MOBILE
-===================================================== */
+        <input
+          id="ownerName"
+          placeholder="Seller / Owner name"
+        >
 
-@media (max-width: 699px) {
+        <input
+          id="storePhone"
+          type="tel"
+          placeholder="Phone number"
+        >
 
-  .app {
-    width: 100%;
-  }
+        <input
+          id="storeEmail"
+          type="email"
+          placeholder="Email address"
+        >
 
-  .topbar {
-    position: relative;
+        <input
+          id="storeAddress"
+          placeholder="Business address"
+        >
 
-    left: auto;
-    right: auto;
+        <input
+          id="storeCity"
+          placeholder="City"
+        >
 
-    height: auto;
+        <button
+          id="saveStoreButton"
+          class="primary-action"
+        >
+          Save Business Information
+        </button>
 
-    padding: 18px;
+        <div id="storeSaveMessage"></div>
 
-    border-bottom: 1px solid #eee;
-  }
+      </div>
 
-  main {
-    margin-left: 0;
-    padding-top: 0;
-  }
+    </section>
 
-  .page {
-    padding: 18px;
-    max-width: none;
-  }
+  </main>
 
-  .welcome h2 {
-    font-size: 24px;
-  }
 
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  <!-- ========================= -->
+  <!-- MOBILE NAVIGATION -->
+  <!-- ========================= -->
 
-  .quick-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  <nav class="mobile-nav">
 
+    <button
+      class="mobile-nav-item active"
+      onclick="openPage('homePage', this)"
+    >
+      <span>⌂</span>
+      Home
+    </button>
 
-  /* MOBILE BOTTOM NAV */
+    <button
+      class="mobile-nav-item"
+      onclick="openPage('productsPage', this)"
+    >
+      <span>◇</span>
+      Inventory
+    </button>
 
-  .bottom-nav {
-    top: auto;
-    bottom: 0;
+    <button
+      class="mobile-sale-button"
+      onclick="openPage('salePage', this)"
+    >
+      +
+    </button>
 
-    left: 0;
+    <button
+      class="mobile-nav-item"
+      onclick="openPage('customersPage', this)"
+    >
+      <span>♙</span>
+      Customers
+    </button>
 
-    width: 100%;
-    height: 72px;
+    <button
+      class="mobile-nav-item"
+      onclick="openPage('salesPage', this)"
+    >
+      <span>▥</span>
+      Sales
+    </button>
 
-    padding: 7px 5px;
+  </nav>
 
-    flex-direction: row;
+</div>
 
-    justify-content: space-around;
-    align-items: center;
 
-    gap: 0;
+<script src="./script.js"></script>
 
-    background: rgba(255, 255, 255, .97);
-
-    border-top: 1px solid #e7e7e7;
-
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-item {
-    order: initial !important;
-
-    width: auto;
-    min-height: auto;
-
-    padding: 5px 7px;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 1px;
-
-    border-radius: 10px;
-
-    background: transparent;
-
-    color: #888;
-
-    font-size: 9px;
-
-    text-align: center;
-  }
-
-  .nav-item span {
-    width: auto;
-
-    font-size: 19px;
-
-    margin: 0 0 2px;
-  }
-
-  .nav-sale {
-    order: initial;
-
-    width: 48px;
-    height: 48px;
-
-    min-height: 48px;
-
-    border-radius: 50%;
-
-    margin: 0;
-
-    font-size: 0;
-
-    background: #171717;
-  }
-
-  .nav-sale::before {
-    content: "+";
-    font-size: 24px;
-  }
-
-  .nav-sale::after {
-    display: none;
-  }
-
-}
-
-
-/* =====================================================
-   SMALL PHONES
-===================================================== */
-
-@media (max-width: 420px) {
-
-  .page {
-    padding: 15px;
-  }
-
-  .stats-grid {
-    gap: 8px;
-  }
-
-  .stat-card {
-    padding: 15px;
-  }
-
-  .quick-grid {
-    gap: 8px;
-  }
-
-  .quick-grid button {
-    padding: 16px 10px;
-  }
-
-}
-
-
-/* =====================================================
-   PRINT
-===================================================== */
-
-@media print {
-
-  body * {
-    visibility: hidden;
-  }
-
-  .receipt,
-  .receipt * {
-    visibility: visible;
-  }
-
-  .receipt {
-    display: block !important;
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-  }
-
-}
+</body>
+</html>
