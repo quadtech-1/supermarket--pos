@@ -13,6 +13,7 @@ body {
   background: #f6f7f8;
   color: #171717;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 button,
@@ -26,9 +27,14 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+/* ==========================================
+   MAIN APP
+========================================== */
+
 .app {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1200px;
   min-height: 100vh;
   margin: 0 auto;
   background: #f6f7f8;
@@ -36,21 +42,17 @@ button {
 }
 
 
-/* =========================================
+/* ==========================================
    TOP BAR
-========================================= */
+========================================== */
 
 .topbar {
-  width: 100%;
-  min-height: 78px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 20px 24px 16px;
   background: white;
-  border-bottom: 1px solid #e7e7e7;
-  position: relative;
-  z-index: 20;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .small-label {
@@ -66,29 +68,22 @@ button {
 }
 
 .profile-circle {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  border: 0;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #171717;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 19px;
   font-weight: bold;
-  padding: 0;
 }
 
 
-/* =========================================
-   MAIN
-========================================= */
-
-main {
-  width: 100%;
-}
+/* ==========================================
+   PAGES
+========================================== */
 
 .page {
   display: none;
@@ -101,9 +96,9 @@ main {
 }
 
 
-/* =========================================
-   HOME
-========================================= */
+/* ==========================================
+   WELCOME
+========================================== */
 
 .welcome {
   margin: 10px 0 20px;
@@ -112,20 +107,25 @@ main {
 .welcome p {
   margin: 0;
   color: #777;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .welcome h2 {
   margin: 5px 0;
-  font-size: 28px;
+  font-size: 27px;
 }
+
+
+/* ==========================================
+   SALES CARD
+========================================== */
 
 .sales-card {
   padding: 25px;
   border-radius: 18px;
   background: #171717;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .sales-card span {
@@ -144,13 +144,13 @@ main {
 }
 
 
-/* =========================================
+/* ==========================================
    STATS
-========================================= */
+========================================== */
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
@@ -172,9 +172,9 @@ main {
 }
 
 
-/* =========================================
-   BUTTONS
-========================================= */
+/* ==========================================
+   PRIMARY BUTTON
+========================================== */
 
 .primary-action {
   width: 100%;
@@ -192,25 +192,16 @@ main {
   transform: scale(.98);
 }
 
-.small-button {
-  border: 0;
-  border-radius: 10px;
-  padding: 11px 15px;
-  background: #171717;
-  color: white;
-  font-weight: 600;
-}
 
-
-/* =========================================
-   SECTION TITLES
-========================================= */
+/* ==========================================
+   SECTION TITLE
+========================================== */
 
 .section-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 26px 0 13px;
+  margin: 25px 0 12px;
 }
 
 .section-title h3 {
@@ -219,13 +210,13 @@ main {
 }
 
 
-/* =========================================
+/* ==========================================
    QUICK ACTIONS
-========================================= */
+========================================== */
 
 .quick-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
@@ -246,26 +237,35 @@ main {
 }
 
 
-/* =========================================
+/* ==========================================
    PAGE HEADER
-========================================= */
+========================================== */
 
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 17px;
+  margin-bottom: 18px;
 }
 
 .page-header h2 {
   margin: 4px 0 0;
-  font-size: 26px;
+  font-size: 27px;
+}
+
+.small-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #171717;
+  color: white;
+  font-weight: 600;
 }
 
 
-/* =========================================
+/* ==========================================
    INPUTS
-========================================= */
+========================================== */
 
 .search,
 input,
@@ -288,42 +288,42 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    FORM BOX
-========================================= */
+========================================== */
 
 .form-box {
   background: white;
-  padding: 20px;
+  padding: 19px;
   border-radius: 16px;
   margin: 15px 0;
 }
 
 .form-box h3 {
-  margin: 0 0 14px;
+  margin: 0 0 13px;
   font-size: 16px;
 }
 
 
-/* =========================================
+/* ==========================================
    PRODUCTS
-========================================= */
+========================================== */
 
 #productList {
-  margin-top: 13px;
+  margin-top: 12px;
 }
 
 .product-card {
   background: white;
   border-radius: 15px;
-  padding: 18px;
+  padding: 17px;
   margin-bottom: 10px;
 }
 
 .product-top {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .product-name {
@@ -337,7 +337,7 @@ select:focus {
 }
 
 .stock {
-  margin-top: 10px;
+  margin-top: 9px;
   font-size: 12px;
 }
 
@@ -351,9 +351,9 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    SALE PRODUCTS
-========================================= */
+========================================== */
 
 .sale-product {
   display: flex;
@@ -361,8 +361,8 @@ select:focus {
   justify-content: space-between;
   gap: 12px;
   background: white;
-  padding: 17px;
-  margin: 9px 0;
+  padding: 16px;
+  margin: 8px 0;
   border-radius: 14px;
 }
 
@@ -388,9 +388,9 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    CART
-========================================= */
+========================================== */
 
 .cart-box {
   margin-top: 18px;
@@ -420,13 +420,13 @@ select:focus {
   border: 0;
   border-radius: 8px;
   background: #eee;
-  padding: 8px 12px;
+  padding: 7px 12px;
 }
 
 
-/* =========================================
+/* ==========================================
    RECEIPT
-========================================= */
+========================================== */
 
 .receipt {
   display: none;
@@ -460,9 +460,9 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    HISTORY
-========================================= */
+========================================== */
 
 .history-card {
   background: white;
@@ -482,9 +482,9 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    EMPTY
-========================================= */
+========================================== */
 
 .empty {
   padding: 25px;
@@ -495,18 +495,18 @@ select:focus {
 }
 
 
-/* =========================================
+/* ==========================================
    HIDDEN
-========================================= */
+========================================== */
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 
-/* =========================================
+/* ==========================================
    BOTTOM NAVIGATION
-========================================= */
+========================================== */
 
 .bottom-nav {
   position: fixed;
@@ -514,31 +514,52 @@ select:focus {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+
   width: 100%;
-  max-width: 1180px;
-  height: 72px;
+  max-width: 1200px;
+
+  min-height: 72px;
+
   padding: 8px 10px;
-  background: rgba(255,255,255,.97);
+
+  background: rgba(255, 255, 255, .97);
+
   border-top: 1px solid #e7e7e7;
+
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
+
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
+
+/* ==========================================
+   NAV ITEMS
+========================================== */
+
 .nav-item {
-  width: 80px;
+  flex: 1;
+  min-width: 0;
+
   border: 0;
   background: transparent;
+
   color: #888;
+
   font-size: 10px;
-  padding: 4px;
+  line-height: 1.2;
+
+  padding: 5px 2px;
+
+  text-align: center;
 }
 
 .nav-item span {
   display: block;
   font-size: 20px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .nav-item.active {
@@ -546,131 +567,237 @@ select:focus {
   font-weight: bold;
 }
 
+
+/* ==========================================
+   CENTER SALE BUTTON
+========================================== */
+
 .nav-sale {
-  width: 54px;
-  height: 54px;
+  flex: 0 0 50px;
+
+  width: 50px;
+  height: 50px;
+
+  margin: 0 3px;
+
   border: 0;
   border-radius: 50%;
+
   background: #171717;
   color: white;
+
   font-size: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
-/* =========================================
+/* ==========================================
    DESKTOP
-========================================= */
+========================================== */
 
-@media (min-width: 800px) {
+@media (min-width: 700px) {
+
+  body {
+    padding: 20px;
+  }
+
+  .app {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+  }
+
+  .bottom-nav {
+    bottom: 20px;
+    width: calc(100% - 40px);
+    max-width: 1160px;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
+  }
+
+  .page {
+    max-width: 1000px;
+    margin: auto;
+  }
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 700px) and (max-width: 1000px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 699px) {
 
   body {
     padding: 0;
   }
 
   .app {
-    min-height: 100vh;
-    box-shadow: 0 5px 30px rgba(0,0,0,.06);
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 86px;
   }
-
-  .page {
-    max-width: 1050px;
-    margin: 0 auto;
-  }
-
-  .bottom-nav {
-    bottom: 0;
-    border-radius: 0;
-  }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 799px) {
 
   .topbar {
-    display: flex !important;
-    visibility: visible !important;
-    height: auto !important;
-    min-height: 72px;
-    padding: 15px 17px;
-  }
-
-  .profile-circle {
-    display: flex !important;
-    visibility: visible !important;
-  }
-
-  .page {
-    padding: 18px 15px;
-  }
-
-  .welcome h2 {
-    font-size: 24px;
-  }
-
-  .sales-card strong {
-    font-size: 31px;
-  }
-
-  .bottom-nav {
-    height: 70px;
-  }
-
-  .nav-item {
-    width: 64px;
-  }
-
-}
-
-
-/* =========================================
-   VERY SMALL PHONES
-========================================= */
-
-@media (max-width: 380px) {
-
-  .topbar {
-    padding: 13px 12px;
+    padding: 18px 15px 13px;
   }
 
   .topbar h1 {
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .profile-circle {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
+    width: 38px;
+    height: 38px;
   }
 
   .page {
-    padding: 16px 12px;
+    padding: 17px 14px;
+  }
+
+  .welcome {
+    margin-top: 5px;
+  }
+
+  .welcome h2 {
+    font-size: 23px;
+  }
+
+  .sales-card {
+    padding: 21px;
+  }
+
+  .sales-card strong {
+    font-size: 29px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .stat-card strong {
+    font-size: 23px;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .quick-grid button {
+    padding: 17px 12px;
+  }
+
+  .page-header h2 {
+    font-size: 23px;
+  }
+
+  .form-box {
+    padding: 15px;
+  }
+
+
+  /* MOBILE NAV */
+
+  .bottom-nav {
+    left: 0;
+    transform: none;
+
+    width: 100%;
+    max-width: none;
+
+    min-height: 68px;
+
+    padding: 6px 3px;
+
+    border-radius: 0;
   }
 
   .nav-item {
-    width: 58px;
-    font-size: 9px;
+    flex: 1 1 0;
+    min-width: 0;
+
+    font-size: 8px;
+
+    padding: 3px 0;
   }
 
   .nav-item span {
     font-size: 18px;
+    margin-bottom: 2px;
   }
 
   .nav-sale {
-    width: 50px;
-    height: 50px;
+    flex: 0 0 43px;
+
+    width: 43px;
+    height: 43px;
+
+    margin: 0 1px;
+
+    font-size: 21px;
   }
 
 }
 
 
-/* =========================================
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media (max-width: 380px) {
+
+  .bottom-nav {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .nav-item {
+    font-size: 7px;
+  }
+
+  .nav-item span {
+    font-size: 17px;
+  }
+
+  .nav-sale {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+}
+
+
+/* ==========================================
    PRINT
-========================================= */
+========================================== */
 
 @media print {
 
@@ -689,6 +816,8 @@ select:focus {
     top: 0;
     left: 0;
     width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
 
 }
