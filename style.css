@@ -9,10 +9,10 @@ html {
 
 body {
   margin: 0;
-  min-height: 100vh;
   background: #f6f7f8;
   color: #171717;
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -27,6 +27,11 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 
 /* ==========================================
    MAIN APP
@@ -34,9 +39,9 @@ button {
 
 .app {
   width: 100%;
-  max-width: 1200px;
+  max-width: 620px;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: auto;
   background: #f6f7f8;
   padding-bottom: 90px;
 }
@@ -50,9 +55,8 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px 16px;
+  padding: 22px 18px 14px;
   background: white;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .small-label {
@@ -64,13 +68,15 @@ button {
 
 .topbar h1 {
   margin: 4px 0 0;
-  font-size: 21px;
+  font-size: 20px;
 }
 
 .profile-circle {
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   background: #171717;
   color: white;
@@ -87,8 +93,7 @@ button {
 
 .page {
   display: none;
-  width: 100%;
-  padding: 24px;
+  padding: 18px;
 }
 
 .page.active {
@@ -101,7 +106,7 @@ button {
 ========================================== */
 
 .welcome {
-  margin: 10px 0 20px;
+  margin: 10px 0 18px;
 }
 
 .welcome p {
@@ -111,8 +116,8 @@ button {
 }
 
 .welcome h2 {
-  margin: 5px 0;
-  font-size: 27px;
+  margin: 4px 0;
+  font-size: 24px;
 }
 
 
@@ -121,11 +126,11 @@ button {
 ========================================== */
 
 .sales-card {
-  padding: 25px;
+  padding: 24px;
   border-radius: 18px;
   background: #171717;
   color: white;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .sales-card span {
@@ -135,8 +140,8 @@ button {
 
 .sales-card strong {
   display: block;
-  margin: 8px 0;
-  font-size: 34px;
+  margin: 7px 0;
+  font-size: 32px;
 }
 
 .sales-card small {
@@ -150,14 +155,14 @@ button {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .stat-card {
   background: white;
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px;
 }
 
 .stat-card span {
@@ -167,13 +172,13 @@ button {
 
 .stat-card strong {
   display: block;
-  margin-top: 7px;
-  font-size: 26px;
+  margin-top: 6px;
+  font-size: 25px;
 }
 
 
 /* ==========================================
-   PRIMARY BUTTON
+   ACTION
 ========================================== */
 
 .primary-action {
@@ -181,7 +186,7 @@ button {
   border: 0;
   border-radius: 13px;
   padding: 16px;
-  margin-top: 15px;
+  margin-top: 14px;
   background: #171717;
   color: white;
   font-size: 14px;
@@ -216,14 +221,14 @@ button {
 
 .quick-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .quick-grid button {
   border: 0;
   border-radius: 15px;
-  padding: 20px 14px;
+  padding: 20px 10px;
   background: white;
   color: #222;
   font-size: 13px;
@@ -245,12 +250,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .page-header h2 {
   margin: 4px 0 0;
-  font-size: 27px;
+  font-size: 25px;
 }
 
 .small-button {
@@ -278,7 +283,7 @@ select {
   background: white;
   outline: none;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 
 .search:focus,
@@ -294,9 +299,9 @@ select:focus {
 
 .form-box {
   background: white;
-  padding: 19px;
+  padding: 18px;
   border-radius: 16px;
-  margin: 15px 0;
+  margin: 14px 0;
 }
 
 .form-box h3 {
@@ -317,7 +322,7 @@ select:focus {
   background: white;
   border-radius: 15px;
   padding: 17px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 
 .product-top {
@@ -328,6 +333,7 @@ select:focus {
 
 .product-name {
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .product-price {
@@ -368,10 +374,12 @@ select:focus {
 
 .sale-product-info {
   min-width: 0;
+  flex: 1;
 }
 
 .sale-product-info strong {
   display: block;
+  overflow-wrap: anywhere;
 }
 
 .sale-product-info small {
@@ -468,7 +476,8 @@ select:focus {
   background: white;
   padding: 17px;
   border-radius: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
+  overflow-wrap: anywhere;
 }
 
 .history-card strong {
@@ -500,7 +509,7 @@ select:focus {
 ========================================== */
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 
@@ -514,52 +523,35 @@ select:focus {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-
   width: 100%;
-  max-width: 1200px;
-
-  min-height: 72px;
-
-  padding: 8px 10px;
-
-  background: rgba(255, 255, 255, .97);
-
+  max-width: 620px;
+  height: 70px;
+  padding: 8px 6px;
+  background: rgba(255,255,255,.97);
   border-top: 1px solid #e7e7e7;
-
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
-
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
-
-/* ==========================================
-   NAV ITEMS
-========================================== */
-
 .nav-item {
   flex: 1;
   min-width: 0;
-
+  max-width: 82px;
+  height: 55px;
   border: 0;
   background: transparent;
-
   color: #888;
-
   font-size: 10px;
-  line-height: 1.2;
-
-  padding: 5px 2px;
-
-  text-align: center;
+  padding: 3px 2px;
 }
 
 .nav-item span {
   display: block;
   font-size: 20px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .nav-item.active {
@@ -567,78 +559,15 @@ select:focus {
   font-weight: bold;
 }
 
-
-/* ==========================================
-   CENTER SALE BUTTON
-========================================== */
-
 .nav-sale {
-  flex: 0 0 50px;
-
-  width: 50px;
-  height: 50px;
-
-  margin: 0 3px;
-
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
   border: 0;
   border-radius: 50%;
-
   background: #171717;
   color: white;
-
   font-size: 25px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* ==========================================
-   DESKTOP
-========================================== */
-
-@media (min-width: 700px) {
-
-  body {
-    padding: 20px;
-  }
-
-  .app {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
-  }
-
-  .bottom-nav {
-    bottom: 20px;
-    width: calc(100% - 40px);
-    max-width: 1160px;
-    border: 1px solid #e7e7e7;
-    border-radius: 20px;
-  }
-
-  .page {
-    max-width: 1000px;
-    margin: auto;
-  }
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (min-width: 700px) and (max-width: 1000px) {
-
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .quick-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
 }
 
 
@@ -649,51 +578,36 @@ select:focus {
 @media (max-width: 699px) {
 
   body {
-    padding: 0;
+    width: 100%;
   }
 
   .app {
     width: 100%;
-    max-width: 100%;
-    padding-bottom: 86px;
+    max-width: none;
+    min-height: 100vh;
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
   }
 
   .topbar {
-    padding: 18px 15px 13px;
-  }
-
-  .topbar h1 {
-    font-size: 19px;
-  }
-
-  .profile-circle {
-    width: 38px;
-    height: 38px;
+    padding-top: max(16px, env(safe-area-inset-top));
   }
 
   .page {
-    padding: 17px 14px;
-  }
-
-  .welcome {
-    margin-top: 5px;
+    width: 100%;
+    padding: 16px;
   }
 
   .welcome h2 {
-    font-size: 23px;
+    font-size: 22px;
+    line-height: 1.25;
   }
 
   .sales-card {
-    padding: 21px;
+    padding: 20px;
   }
 
   .sales-card strong {
     font-size: 29px;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
   }
 
   .stat-card {
@@ -704,63 +618,21 @@ select:focus {
     font-size: 23px;
   }
 
-  .quick-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
   .quick-grid button {
-    padding: 17px 12px;
+    min-height: 88px;
   }
 
   .page-header h2 {
     font-size: 23px;
   }
 
-  .form-box {
-    padding: 15px;
+  .sale-product {
+    padding: 14px;
   }
-
-
-  /* MOBILE NAV */
 
   .bottom-nav {
-    left: 0;
-    transform: none;
-
-    width: 100%;
-    max-width: none;
-
-    min-height: 68px;
-
-    padding: 6px 3px;
-
-    border-radius: 0;
-  }
-
-  .nav-item {
-    flex: 1 1 0;
-    min-width: 0;
-
-    font-size: 8px;
-
-    padding: 3px 0;
-  }
-
-  .nav-item span {
-    font-size: 18px;
-    margin-bottom: 2px;
-  }
-
-  .nav-sale {
-    flex: 0 0 43px;
-
-    width: 43px;
-    height: 43px;
-
-    margin: 0 1px;
-
-    font-size: 21px;
+    height: calc(70px + env(safe-area-inset-bottom));
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
   }
 
 }
@@ -772,24 +644,74 @@ select:focus {
 
 @media (max-width: 380px) {
 
-  .bottom-nav {
-    padding-left: 2px;
-    padding-right: 2px;
+  .page {
+    padding: 13px;
+  }
+
+  .topbar {
+    padding-left: 13px;
+    padding-right: 13px;
   }
 
   .nav-item {
-    font-size: 7px;
+    font-size: 9px;
   }
 
   .nav-item span {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .nav-sale {
-    flex-basis: 40px;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+  }
+
+  .stats-grid {
+    gap: 7px;
+  }
+
+  .stat-card {
+    padding: 13px;
+  }
+
+}
+
+
+/* ==========================================
+   DESKTOP
+   Keeps the original centered PC appearance
+========================================== */
+
+@media (min-width: 700px) {
+
+  body {
+    padding: 20px 0;
+  }
+
+  .app {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,.08);
+  }
+
+  .bottom-nav {
+    bottom: 20px;
+    border-radius: 20px;
+  }
+
+}
+
+
+/* ==========================================
+   LARGE PC SCREENS
+========================================== */
+
+@media (min-width: 1000px) {
+
+  .app {
+    max-width: 620px;
   }
 
 }
@@ -816,8 +738,6 @@ select:focus {
     top: 0;
     left: 0;
     width: 100%;
-    margin: 0;
-    border-radius: 0;
   }
 
 }
