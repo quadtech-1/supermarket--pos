@@ -772,5 +772,41 @@
 
 <script src="./script.js"></script>
 
+
+<!-- ============================= -->
+<!-- OFFLINE MODE -->
+<!-- ============================= -->
+
+<script>
+
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(function () {
+
+          console.log(
+            "My Store offline mode enabled."
+          );
+
+        })
+        .catch(function (error) {
+
+          console.error(
+            "My Store offline mode error:",
+            error
+          );
+
+        });
+
+    });
+
+  }
+
+</script>
+
+
 </body>
 </html>
