@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -29,37 +28,24 @@
 
   <title>My Store POS</title>
 
-  <link
-    rel="manifest"
-    href="./manifest.json"
-  >
+  <link rel="manifest" href="./manifest.json">
 
   <link
     rel="apple-touch-icon"
     href="./icon-192.png"
   >
 
-  <link
-    rel="stylesheet"
-    href="./style.css"
-  >
-
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
 <div class="app">
 
-
-  <!-- ================================= -->
   <!-- TOP BAR -->
-  <!-- ================================= -->
-
   <header class="topbar">
 
     <div>
-
       <div class="small-label">
         BUSINESS MANAGER
       </div>
@@ -67,16 +53,13 @@
       <h1 id="appStoreName">
         My Store
       </h1>
-
     </div>
 
-
-    <!-- SETTINGS BUTTON -->
-
+    <!-- Settings always available -->
     <button
       class="profile-circle"
-      onclick="openPage('settingsPage')"
-      aria-label="Open Settings"
+      onclick="openPage('settingsPage', this)"
+      aria-label="Settings"
       title="Settings"
     >
       ⚙
@@ -85,33 +68,17 @@
   </header>
 
 
-
-  <!-- ================================= -->
-  <!-- PAGES -->
-  <!-- ================================= -->
-
   <main>
 
-
-    <!-- ================================= -->
     <!-- HOME -->
-    <!-- ================================= -->
-
-    <section
-      id="homePage"
-      class="page active"
-    >
+    <section id="homePage" class="page active">
 
       <div class="welcome">
-
-        <p>
-          Good day 👋
-        </p>
+        <p>Good day 👋</p>
 
         <h2>
           Here's your business overview
         </h2>
-
       </div>
 
 
@@ -134,56 +101,24 @@
 
       <div class="stats-grid">
 
-
         <div class="stat-card">
-
-          <span>
-            Products
-          </span>
-
-          <strong id="productCount">
-            0
-          </strong>
-
+          <span>Products</span>
+          <strong id="productCount">0</strong>
         </div>
 
-
         <div class="stat-card">
-
-          <span>
-            Low stock
-          </span>
-
-          <strong id="lowStock">
-            0
-          </strong>
-
+          <span>Low stock</span>
+          <strong id="lowStock">0</strong>
         </div>
 
-
         <div class="stat-card">
-
-          <span>
-            Transactions
-          </span>
-
-          <strong id="transactionCount">
-            0
-          </strong>
-
+          <span>Transactions</span>
+          <strong id="transactionCount">0</strong>
         </div>
 
-
         <div class="stat-card">
-
-          <span>
-            Customers
-          </span>
-
-          <strong id="customerCount">
-            0
-          </strong>
-
+          <span>Customers</span>
+          <strong id="customerCount">0</strong>
         </div>
 
       </div>
@@ -198,98 +133,49 @@
 
 
       <div class="section-title">
-
-        <h3>
-          Quick actions
-        </h3>
-
+        <h3>Quick actions</h3>
       </div>
 
 
       <div class="quick-grid">
 
-
-        <button
-          onclick="openPage('productsPage', this)"
-        >
-
-          <span>
-            📦
-          </span>
-
+        <button onclick="openPage('productsPage', this)">
+          <span>📦</span>
           Inventory
-
         </button>
 
-
-        <button
-          onclick="openPage('salePage', this)"
-        >
-
-          <span>
-            🛒
-          </span>
-
+        <button onclick="openPage('salePage', this)">
+          <span>🛒</span>
           New Sale
-
         </button>
 
-
-        <button
-          onclick="openPage('customersPage', this)"
-        >
-
-          <span>
-            👥
-          </span>
-
+        <button onclick="openPage('customersPage', this)">
+          <span>👥</span>
           Customers
-
         </button>
 
-
-        <button
-          onclick="openPage('salesPage', this)"
-        >
-
-          <span>
-            📊
-          </span>
-
+        <button onclick="openPage('salesPage', this)">
+          <span>📊</span>
           Sales
-
         </button>
-
 
       </div>
 
     </section>
 
 
-
-    <!-- ================================= -->
     <!-- INVENTORY -->
-    <!-- ================================= -->
-
-    <section
-      id="productsPage"
-      class="page"
-    >
+    <section id="productsPage" class="page">
 
       <div class="page-header">
 
         <div>
-
           <span class="small-label">
             INVENTORY
           </span>
 
-          <h2>
-            Products
-          </h2>
-
+          <h2>Products</h2>
         </div>
-
 
         <button
           class="small-button"
@@ -314,16 +200,12 @@
         class="form-box hidden"
       >
 
-        <h3>
-          Add product
-        </h3>
-
+        <h3>Add product</h3>
 
         <input
           id="productName"
           placeholder="Product name"
         >
-
 
         <input
           id="productRetailPrice"
@@ -331,20 +213,17 @@
           placeholder="Retail price ₦"
         >
 
-
         <input
           id="productWholesalePrice"
           type="number"
           placeholder="Wholesale price ₦"
         >
 
-
         <input
           id="productStock"
           type="number"
           placeholder="Quantity"
         >
-
 
         <button
           class="primary-action"
@@ -361,28 +240,17 @@
     </section>
 
 
-
-    <!-- ================================= -->
     <!-- NEW SALE -->
-    <!-- ================================= -->
-
-    <section
-      id="salePage"
-      class="page"
-    >
+    <section id="salePage" class="page">
 
       <div class="page-header">
 
         <div>
-
           <span class="small-label">
             SALES
           </span>
 
-          <h2>
-            New Sale
-          </h2>
-
+          <h2>New Sale</h2>
         </div>
 
       </div>
@@ -415,9 +283,7 @@
 
         <div class="section-title">
 
-          <h3>
-            Cart
-          </h3>
+          <h3>Cart</h3>
 
           <span id="cartTotal">
             ₦0
@@ -437,21 +303,16 @@
       </div>
 
 
-
       <!-- CUSTOMER -->
 
       <div class="form-box">
 
-        <h3>
-          Customer
-        </h3>
-
+        <h3>Customer</h3>
 
         <input
           id="customerName"
           placeholder="Customer name"
         >
-
 
         <input
           id="customerPhone"
@@ -462,15 +323,11 @@
       </div>
 
 
-
       <!-- PAYMENT -->
 
       <div class="form-box">
 
-        <h3>
-          Payment
-        </h3>
-
+        <h3>Payment</h3>
 
         <select id="paymentMethod">
 
@@ -517,7 +374,6 @@
       </div>
 
 
-
       <!-- RECEIPT -->
 
       <div
@@ -528,28 +384,17 @@
     </section>
 
 
-
-    <!-- ================================= -->
     <!-- CUSTOMERS -->
-    <!-- ================================= -->
-
-    <section
-      id="customersPage"
-      class="page"
-    >
+    <section id="customersPage" class="page">
 
       <div class="page-header">
 
         <div>
-
           <span class="small-label">
             CUSTOMERS
           </span>
 
-          <h2>
-            Customers
-          </h2>
-
+          <h2>Customers</h2>
         </div>
 
       </div>
@@ -573,28 +418,17 @@
     </section>
 
 
-
-    <!-- ================================= -->
     <!-- SALES HISTORY -->
-    <!-- ================================= -->
-
-    <section
-      id="salesPage"
-      class="page"
-    >
+    <section id="salesPage" class="page">
 
       <div class="page-header">
 
         <div>
-
           <span class="small-label">
             BUSINESS ACTIVITY
           </span>
 
-          <h2>
-            Sales History
-          </h2>
-
+          <h2>Sales History</h2>
         </div>
 
       </div>
@@ -605,28 +439,17 @@
     </section>
 
 
-
-    <!-- ================================= -->
     <!-- SETTINGS -->
-    <!-- ================================= -->
-
-    <section
-      id="settingsPage"
-      class="page"
-    >
+    <section id="settingsPage" class="page">
 
       <div class="page-header">
 
         <div>
-
           <span class="small-label">
             BUSINESS
           </span>
 
-          <h2>
-            Settings
-          </h2>
-
+          <h2>Settings</h2>
         </div>
 
       </div>
@@ -644,12 +467,10 @@
           placeholder="Business / Store name"
         >
 
-
         <input
           id="ownerName"
           placeholder="Seller / Owner name"
         >
-
 
         <input
           id="storePhone"
@@ -657,19 +478,16 @@
           placeholder="Phone number"
         >
 
-
         <input
           id="storeEmail"
           type="email"
           placeholder="Email address"
         >
 
-
         <input
           id="storeAddress"
           placeholder="Business address"
         >
-
 
         <input
           id="storeCity"
@@ -694,25 +512,16 @@
   </main>
 
 
-
-  <!-- ================================= -->
   <!-- BOTTOM NAVIGATION -->
-  <!-- ================================= -->
 
   <nav class="bottom-nav">
-
 
     <button
       class="nav-item active"
       onclick="openPage('homePage', this)"
     >
-
-      <span>
-        ⌂
-      </span>
-
+      <span>⌂</span>
       Home
-
     </button>
 
 
@@ -720,13 +529,8 @@
       class="nav-item"
       onclick="openPage('productsPage', this)"
     >
-
-      <span>
-        ▣
-      </span>
-
+      <span>▣</span>
       Inventory
-
     </button>
 
 
@@ -743,13 +547,8 @@
       class="nav-item"
       onclick="openPage('customersPage', this)"
     >
-
-      <span>
-        ♙
-      </span>
-
+      <span>♙</span>
       Customers
-
     </button>
 
 
@@ -757,59 +556,25 @@
       class="nav-item"
       onclick="openPage('salesPage', this)"
     >
-
-      <span>
-        ▤
-      </span>
-
+      <span>▤</span>
       Sales
-
     </button>
 
 
-  </nav>
+    <button
+      class="nav-item"
+      onclick="openPage('settingsPage', this)"
+    >
+      <span>⚙</span>
+      Settings
+    </button>
 
+  </nav>
 
 </div>
 
 
-
-<!-- ================================= -->
-<!-- JAVASCRIPT -->
-<!-- ================================= -->
-
 <script src="./script.js"></script>
-
-
-<!-- ================================= -->
-<!-- OFFLINE SERVICE WORKER -->
-<!-- ================================= -->
-
-<script>
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener("load", function () {
-
-    navigator.serviceWorker.register("./sw.js")
-      .then(function () {
-
-        console.log("My Store offline service worker registered.");
-
-      })
-      .catch(function (error) {
-
-        console.error(
-          "My Store service worker registration failed:",
-          error
-        );
-
-      });
-
-  });
-
-}
-</script>
-
 
 </body>
 </html>
