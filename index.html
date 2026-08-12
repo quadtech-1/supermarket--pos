@@ -781,5 +781,35 @@
 <script src="./script.js"></script>
 
 
+<!-- ================================= -->
+<!-- OFFLINE SERVICE WORKER -->
+<!-- ================================= -->
+
+<script>
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", function () {
+
+    navigator.serviceWorker.register("./sw.js")
+      .then(function () {
+
+        console.log("My Store offline service worker registered.");
+
+      })
+      .catch(function (error) {
+
+        console.error(
+          "My Store service worker registration failed:",
+          error
+        );
+
+      });
+
+  });
+
+}
+</script>
+
+
 </body>
 </html>
