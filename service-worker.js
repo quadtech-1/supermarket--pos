@@ -1,21 +1,47 @@
-{
-  "name": "My Store",
-  "short_name": "My Store",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#f6f7f8",
-  "theme_color": "#171717",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
+const CACHE_NAME = "my-store-pos-v1";
+
+const FILES_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./style.css",
+  "./script.js",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
+];
+
+self.addEventListener("install", function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(FILES_TO_CACHE);
+    })
+  );
+
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", function(event) {
+  event.waitUntil(
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys
+          .filter(function(key) {
+            return key !== CACHE_NAME;
+          })
+          .map(function(key) {
+            return caches.delete(key);
+          })
+      );
+    })
+  );
+
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", function(event) {
+  event.respondWith(
+    caches.match(event.request).then(function(cachedResponse) {
+      return cachedResponse || fetch(event.request);
+    })
+  );
+});
