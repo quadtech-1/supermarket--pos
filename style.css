@@ -9,11 +9,10 @@ html {
 
 body {
   margin: 0;
+  min-height: 100vh;
   background: #f6f7f8;
   color: #171717;
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
 button,
@@ -27,36 +26,31 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-
-/* ==========================================
-   MAIN APP
-========================================== */
-
 .app {
   width: 100%;
-  max-width: 620px;
+  max-width: 1180px;
   min-height: 100vh;
-  margin: auto;
+  margin: 0 auto;
   background: #f6f7f8;
   padding-bottom: 90px;
 }
 
 
-/* ==========================================
+/* =========================================
    TOP BAR
-========================================== */
+========================================= */
 
 .topbar {
+  width: 100%;
+  min-height: 78px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 18px 14px;
+  padding: 16px 24px;
   background: white;
+  border-bottom: 1px solid #e7e7e7;
+  position: relative;
+  z-index: 20;
 }
 
 .small-label {
@@ -68,14 +62,13 @@ button:disabled {
 
 .topbar h1 {
   margin: 4px 0 0;
-  font-size: 20px;
+  font-size: 21px;
 }
 
 .profile-circle {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
   border: 0;
   border-radius: 50%;
   background: #171717;
@@ -83,17 +76,24 @@ button:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 19px;
   font-weight: bold;
+  padding: 0;
 }
 
 
-/* ==========================================
-   PAGES
-========================================== */
+/* =========================================
+   MAIN
+========================================= */
+
+main {
+  width: 100%;
+}
 
 .page {
   display: none;
-  padding: 18px;
+  width: 100%;
+  padding: 24px;
 }
 
 .page.active {
@@ -101,36 +101,31 @@ button:disabled {
 }
 
 
-/* ==========================================
-   WELCOME
-========================================== */
+/* =========================================
+   HOME
+========================================= */
 
 .welcome {
-  margin: 10px 0 18px;
+  margin: 10px 0 20px;
 }
 
 .welcome p {
   margin: 0;
   color: #777;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .welcome h2 {
-  margin: 4px 0;
-  font-size: 24px;
+  margin: 5px 0;
+  font-size: 28px;
 }
 
-
-/* ==========================================
-   SALES CARD
-========================================== */
-
 .sales-card {
-  padding: 24px;
+  padding: 25px;
   border-radius: 18px;
   background: #171717;
   color: white;
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 }
 
 .sales-card span {
@@ -140,8 +135,8 @@ button:disabled {
 
 .sales-card strong {
   display: block;
-  margin: 7px 0;
-  font-size: 32px;
+  margin: 8px 0;
+  font-size: 34px;
 }
 
 .sales-card small {
@@ -149,20 +144,20 @@ button:disabled {
 }
 
 
-/* ==========================================
+/* =========================================
    STATS
-========================================== */
+========================================= */
 
 .stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .stat-card {
   background: white;
   border-radius: 16px;
-  padding: 18px;
+  padding: 20px;
 }
 
 .stat-card span {
@@ -172,21 +167,21 @@ button:disabled {
 
 .stat-card strong {
   display: block;
-  margin-top: 6px;
-  font-size: 25px;
+  margin-top: 7px;
+  font-size: 26px;
 }
 
 
-/* ==========================================
-   ACTION
-========================================== */
+/* =========================================
+   BUTTONS
+========================================= */
 
 .primary-action {
   width: 100%;
   border: 0;
   border-radius: 13px;
   padding: 16px;
-  margin-top: 14px;
+  margin-top: 15px;
   background: #171717;
   color: white;
   font-size: 14px;
@@ -197,16 +192,25 @@ button:disabled {
   transform: scale(.98);
 }
 
+.small-button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 15px;
+  background: #171717;
+  color: white;
+  font-weight: 600;
+}
 
-/* ==========================================
-   SECTION TITLE
-========================================== */
+
+/* =========================================
+   SECTION TITLES
+========================================= */
 
 .section-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 25px 0 12px;
+  margin: 26px 0 13px;
 }
 
 .section-title h3 {
@@ -215,20 +219,20 @@ button:disabled {
 }
 
 
-/* ==========================================
+/* =========================================
    QUICK ACTIONS
-========================================== */
+========================================= */
 
 .quick-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .quick-grid button {
   border: 0;
   border-radius: 15px;
-  padding: 20px 10px;
+  padding: 20px 14px;
   background: white;
   color: #222;
   font-size: 13px;
@@ -242,35 +246,26 @@ button:disabled {
 }
 
 
-/* ==========================================
+/* =========================================
    PAGE HEADER
-========================================== */
+========================================= */
 
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 17px;
 }
 
 .page-header h2 {
   margin: 4px 0 0;
-  font-size: 25px;
-}
-
-.small-button {
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  background: #171717;
-  color: white;
-  font-weight: 600;
+  font-size: 26px;
 }
 
 
-/* ==========================================
+/* =========================================
    INPUTS
-========================================== */
+========================================= */
 
 .search,
 input,
@@ -283,7 +278,7 @@ select {
   background: white;
   outline: none;
   font-size: 14px;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
 }
 
 .search:focus,
@@ -293,47 +288,46 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    FORM BOX
-========================================== */
+========================================= */
 
 .form-box {
   background: white;
-  padding: 18px;
+  padding: 20px;
   border-radius: 16px;
-  margin: 14px 0;
+  margin: 15px 0;
 }
 
 .form-box h3 {
-  margin: 0 0 13px;
+  margin: 0 0 14px;
   font-size: 16px;
 }
 
 
-/* ==========================================
+/* =========================================
    PRODUCTS
-========================================== */
+========================================= */
 
 #productList {
-  margin-top: 12px;
+  margin-top: 13px;
 }
 
 .product-card {
   background: white;
   border-radius: 15px;
-  padding: 17px;
-  margin-bottom: 9px;
+  padding: 18px;
+  margin-bottom: 10px;
 }
 
 .product-top {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
 }
 
 .product-name {
   font-weight: 700;
-  overflow-wrap: anywhere;
 }
 
 .product-price {
@@ -343,7 +337,7 @@ select:focus {
 }
 
 .stock {
-  margin-top: 9px;
+  margin-top: 10px;
   font-size: 12px;
 }
 
@@ -357,9 +351,9 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    SALE PRODUCTS
-========================================== */
+========================================= */
 
 .sale-product {
   display: flex;
@@ -367,19 +361,17 @@ select:focus {
   justify-content: space-between;
   gap: 12px;
   background: white;
-  padding: 16px;
-  margin: 8px 0;
+  padding: 17px;
+  margin: 9px 0;
   border-radius: 14px;
 }
 
 .sale-product-info {
   min-width: 0;
-  flex: 1;
 }
 
 .sale-product-info strong {
   display: block;
-  overflow-wrap: anywhere;
 }
 
 .sale-product-info small {
@@ -396,9 +388,9 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    CART
-========================================== */
+========================================= */
 
 .cart-box {
   margin-top: 18px;
@@ -428,13 +420,13 @@ select:focus {
   border: 0;
   border-radius: 8px;
   background: #eee;
-  padding: 7px 12px;
+  padding: 8px 12px;
 }
 
 
-/* ==========================================
+/* =========================================
    RECEIPT
-========================================== */
+========================================= */
 
 .receipt {
   display: none;
@@ -468,16 +460,15 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    HISTORY
-========================================== */
+========================================= */
 
 .history-card {
   background: white;
   padding: 17px;
   border-radius: 15px;
-  margin-bottom: 9px;
-  overflow-wrap: anywhere;
+  margin-bottom: 10px;
 }
 
 .history-card strong {
@@ -491,9 +482,9 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    EMPTY
-========================================== */
+========================================= */
 
 .empty {
   padding: 25px;
@@ -504,18 +495,18 @@ select:focus {
 }
 
 
-/* ==========================================
+/* =========================================
    HIDDEN
-========================================== */
+========================================= */
 
 .hidden {
   display: none !important;
 }
 
 
-/* ==========================================
+/* =========================================
    BOTTOM NAVIGATION
-========================================== */
+========================================= */
 
 .bottom-nav {
   position: fixed;
@@ -524,28 +515,24 @@ select:focus {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 620px;
-  height: 70px;
-  padding: 8px 6px;
+  max-width: 1180px;
+  height: 72px;
+  padding: 8px 10px;
   background: rgba(255,255,255,.97);
   border-top: 1px solid #e7e7e7;
   display: flex;
   justify-content: space-around;
   align-items: center;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-item {
-  flex: 1;
-  min-width: 0;
-  max-width: 82px;
-  height: 55px;
+  width: 80px;
   border: 0;
   background: transparent;
   color: #888;
   font-size: 10px;
-  padding: 3px 2px;
+  padding: 4px;
 }
 
 .nav-item span {
@@ -560,9 +547,8 @@ select:focus {
 }
 
 .nav-sale {
-  flex: 0 0 52px;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border: 0;
   border-radius: 50%;
   background: #171717;
@@ -571,89 +557,102 @@ select:focus {
 }
 
 
-/* ==========================================
-   MOBILE
-========================================== */
+/* =========================================
+   DESKTOP
+========================================= */
 
-@media (max-width: 699px) {
+@media (min-width: 800px) {
 
   body {
-    width: 100%;
+    padding: 0;
   }
 
   .app {
-    width: 100%;
-    max-width: none;
     min-height: 100vh;
-    padding-bottom: calc(82px + env(safe-area-inset-bottom));
-  }
-
-  .topbar {
-    padding-top: max(16px, env(safe-area-inset-top));
+    box-shadow: 0 5px 30px rgba(0,0,0,.06);
   }
 
   .page {
-    width: 100%;
-    padding: 16px;
-  }
-
-  .welcome h2 {
-    font-size: 22px;
-    line-height: 1.25;
-  }
-
-  .sales-card {
-    padding: 20px;
-  }
-
-  .sales-card strong {
-    font-size: 29px;
-  }
-
-  .stat-card {
-    padding: 15px;
-  }
-
-  .stat-card strong {
-    font-size: 23px;
-  }
-
-  .quick-grid button {
-    min-height: 88px;
-  }
-
-  .page-header h2 {
-    font-size: 23px;
-  }
-
-  .sale-product {
-    padding: 14px;
+    max-width: 1050px;
+    margin: 0 auto;
   }
 
   .bottom-nav {
-    height: calc(70px + env(safe-area-inset-bottom));
-    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    bottom: 0;
+    border-radius: 0;
   }
 
 }
 
 
-/* ==========================================
-   VERY SMALL PHONES
-========================================== */
+/* =========================================
+   MOBILE
+========================================= */
 
-@media (max-width: 380px) {
-
-  .page {
-    padding: 13px;
-  }
+@media (max-width: 799px) {
 
   .topbar {
-    padding-left: 13px;
-    padding-right: 13px;
+    display: flex !important;
+    visibility: visible !important;
+    height: auto !important;
+    min-height: 72px;
+    padding: 15px 17px;
+  }
+
+  .profile-circle {
+    display: flex !important;
+    visibility: visible !important;
+  }
+
+  .page {
+    padding: 18px 15px;
+  }
+
+  .welcome h2 {
+    font-size: 24px;
+  }
+
+  .sales-card strong {
+    font-size: 31px;
+  }
+
+  .bottom-nav {
+    height: 70px;
   }
 
   .nav-item {
+    width: 64px;
+  }
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+  .topbar {
+    padding: 13px 12px;
+  }
+
+  .topbar h1 {
+    font-size: 18px;
+  }
+
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .page {
+    padding: 16px 12px;
+  }
+
+  .nav-item {
+    width: 58px;
     font-size: 9px;
   }
 
@@ -662,64 +661,16 @@ select:focus {
   }
 
   .nav-sale {
-    flex-basis: 46px;
-    width: 46px;
-    height: 46px;
-    font-size: 22px;
-  }
-
-  .stats-grid {
-    gap: 7px;
-  }
-
-  .stat-card {
-    padding: 13px;
+    width: 50px;
+    height: 50px;
   }
 
 }
 
 
-/* ==========================================
-   DESKTOP
-   Keeps the original centered PC appearance
-========================================== */
-
-@media (min-width: 700px) {
-
-  body {
-    padding: 20px 0;
-  }
-
-  .app {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,.08);
-  }
-
-  .bottom-nav {
-    bottom: 20px;
-    border-radius: 20px;
-  }
-
-}
-
-
-/* ==========================================
-   LARGE PC SCREENS
-========================================== */
-
-@media (min-width: 1000px) {
-
-  .app {
-    max-width: 620px;
-  }
-
-}
-
-
-/* ==========================================
+/* =========================================
    PRINT
-========================================== */
+========================================= */
 
 @media print {
 
