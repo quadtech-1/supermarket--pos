@@ -51,6 +51,7 @@
 
 <div class="app">
 
+
   <!-- ============================= -->
   <!-- TOP BAR -->
   <!-- ============================= -->
@@ -424,7 +425,6 @@
       </div>
 
 
-
       <!-- CUSTOMER -->
 
       <div class="form-box">
@@ -447,7 +447,6 @@
         >
 
       </div>
-
 
 
       <!-- PAYMENT -->
@@ -770,11 +769,15 @@
 </div>
 
 
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
+
 <script src="./script.js"></script>
 
 
 <!-- ============================= -->
-<!-- OFFLINE MODE -->
+<!-- OFFLINE SERVICE WORKER -->
 <!-- ============================= -->
 
 <script>
@@ -788,14 +791,14 @@
         .then(function () {
 
           console.log(
-            "My Store offline mode enabled."
+            "Offline mode enabled"
           );
 
         })
         .catch(function (error) {
 
-          console.error(
-            "My Store offline mode error:",
+          console.log(
+            "Service worker registration failed:",
             error
           );
 
