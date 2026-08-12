@@ -2,11 +2,6 @@ let products = [];
 let sales = [];
 let cart = [];
 
-
-// ==========================================
-// STORE SETTINGS
-// ==========================================
-
 let storeSettings = {
   storeName: "My Store",
   ownerName: "",
@@ -18,409 +13,399 @@ let storeSettings = {
 
 
 // ==========================================
-// LOAD SAVED DATA
+// LOAD DATA
 // ==========================================
 
 try {
-  products =
-    JSON.parse(localStorage.getItem("posProducts")) || [];
+  products = JSON.parse(
+    localStorage.getItem("posProducts")
+  ) || [];
 } catch (e) {
   products = [];
 }
 
 try {
-  sales =
-    JSON.parse(localStorage.getItem("posSales")) || [];
+  sales = JSON.parse(
+    localStorage.getItem("posSales")
+  ) || [];
 } catch (e) {
   sales = [];
 }
 
 try {
-  const savedSettings =
-    JSON.parse(localStorage.getItem("posStoreSettings"));
+  const saved = JSON.parse(
+    localStorage.getItem("posStoreSettings")
+  );
 
-  if (savedSettings) {
+  if (saved) {
     storeSettings = {
       ...storeSettings,
-      ...savedSettings
+      ...saved
     };
   }
 } catch (e) {
-  console.log("Store settings could not be loaded.");
+  console.log("Settings could not be loaded.");
 }
 
 
 // ==========================================
-// START APP
+// SAVE
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", function () {
+function saveData() {
 
-  // ========================================
-  // ELEMENTS
-  // ========================================
+  localStorage.setItem(
+    "posProducts",
+    JSON.stringify(products)
+  );
 
-  const productName =
-    document.getElementById("productName");
-
-  const retailPrice =
-    document.getElementById("productRetailPrice");
-
-  const wholesalePrice =
-    document.getElementById("productWholesalePrice");
-
-  const productStock =
-    document.getElementById("productStock");
-
-  const addProductButton =
-    document.getElementById("addProductButton");
-
-  const productSearch =
-    document.getElementById("productSearch");
-
-  const inventorySearch =
-    document.getElementById("inventorySearch");
-
-  const saleType =
-    document.getElementById("saleType");
-
-  const customerName =
-    document.getElementById("customerName");
-
-  const customerPhone =
-    document.getElementById("customerPhone");
-
-  const amountPaid =
-    document.getElementById("amountPaid");
-
-  const completeSaleButton =
-    document.getElementById("completeSaleButton");
-
-  const customerSearch =
-    document.getElementById("customerSearch");
+  localStorage.setItem(
+    "posSales",
+    JSON.stringify(sales)
+  );
+}
 
 
-  // ========================================
-  // STORE SETTINGS ELEMENTS
-  // ========================================
+function saveStoreSettings() {
 
-  const storeNameInput =
-    document.getElementById("storeName");
-
-  const ownerNameInput =
-    document.getElementById("ownerName");
-
-  const storePhoneInput =
-    document.getElementById("storePhone");
-
-  const storeEmailInput =
-    document.getElementById("storeEmail");
-
-  const storeAddressInput =
-    document.getElementById("storeAddress");
-
-  const storeCityInput =
-    document.getElementById("storeCity");
-
-  const saveStoreButton =
-    document.getElementById("saveStoreButton");
+  localStorage.setItem(
+    "posStoreSettings",
+    JSON.stringify(storeSettings)
+  );
+}
 
 
-  // ========================================
-  // PAYMENT METHOD
-  // ========================================
+// ==========================================
+// PAGE NAVIGATION
+// ==========================================
 
-  let paymentMethod =
-    document.getElementById("paymentMethod");
+window.openPage = function(pageId, clickedButton) {
 
+  document
+    .querySelectorAll(".page")
+    .forEach(function(page) {
+      page.classList.remove("active");
+    });
 
-  // ========================================
-  // SAVE DATA
-  // ========================================
+  const page = document.getElementById(pageId);
 
-  function saveData() {
-
-    localStorage.setItem(
-      "posProducts",
-      JSON.stringify(products)
-    );
-
-    localStorage.setItem(
-      "posSales",
-      JSON.stringify(sales)
-    );
+  if (page) {
+    page.classList.add("active");
   }
 
+  document
+    .querySelectorAll(".side-item, .mobile-nav-item")
+    .forEach(function(button) {
+      button.classList.remove("active");
+    });
 
-  // ========================================
-  // STORE SETTINGS
-  // ========================================
-
-  function saveStoreSettings() {
-
-    localStorage.setItem(
-      "posStoreSettings",
-      JSON.stringify(storeSettings)
-    );
+  if (clickedButton) {
+    clickedButton.classList.add("active");
   }
 
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
-  function loadStoreSettings() {
-
-    if (!storeNameInput) return;
-
-    storeNameInput.value =
-      storeSettings.storeName || "";
-
-    if (ownerNameInput) {
-      ownerNameInput.value =
-        storeSettings.ownerName || "";
-    }
-
-    if (storePhoneInput) {
-      storePhoneInput.value =
-        storeSettings.phone || "";
-    }
-
-    if (storeEmailInput) {
-      storeEmailInput.value =
-        storeSettings.email || "";
-    }
-
-    if (storeAddressInput) {
-      storeAddressInput.value =
-        storeSettings.address || "";
-    }
-
-    if (storeCityInput) {
-      storeCityInput.value =
-        storeSettings.city || "";
-    }
-
-    updateStoreTitle();
+  if (pageId === "homePage") {
+    renderHomeSaleProducts();
+    renderHomeCart();
   }
+};
 
 
-  function updateStoreTitle() {
+// ==========================================
+// DOM READY
+// ==========================================
 
-    const title =
-      document.getElementById("appStoreName");
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
 
-    if (!title) return;
+    const productName =
+      document.getElementById("productName");
 
-    title.textContent =
-      storeSettings.storeName || "My Store";
-  }
+    const retailPrice =
+      document.getElementById("productRetailPrice");
+
+    const wholesalePrice =
+      document.getElementById("productWholesalePrice");
+
+    const productStock =
+      document.getElementById("productStock");
+
+    const addProductButton =
+      document.getElementById("addProductButton");
+
+    const productSearch =
+      document.getElementById("productSearch");
+
+    const inventorySearch =
+      document.getElementById("inventorySearch");
+
+    const saleType =
+      document.getElementById("saleType");
+
+    const customerName =
+      document.getElementById("customerName");
+
+    const customerPhone =
+      document.getElementById("customerPhone");
+
+    const amountPaid =
+      document.getElementById("amountPaid");
+
+    const completeSaleButton =
+      document.getElementById("completeSaleButton");
+
+    const customerSearch =
+      document.getElementById("customerSearch");
+
+    const storeNameInput =
+      document.getElementById("storeName");
+
+    const ownerNameInput =
+      document.getElementById("ownerName");
+
+    const storePhoneInput =
+      document.getElementById("storePhone");
+
+    const storeEmailInput =
+      document.getElementById("storeEmail");
+
+    const storeAddressInput =
+      document.getElementById("storeAddress");
+
+    const storeCityInput =
+      document.getElementById("storeCity");
+
+    const saveStoreButton =
+      document.getElementById("saveStoreButton");
 
 
-  // ========================================
-  // SAVE STORE BUTTON
-  // ========================================
+    // ========================================
+    // STORE TITLE
+    // ========================================
 
-  if (saveStoreButton) {
+    function updateStoreTitle() {
 
-    saveStoreButton.addEventListener(
-      "click",
-      function () {
+      const title =
+        document.getElementById("appStoreName");
 
-        const name =
-          storeNameInput
-            ? storeNameInput.value.trim()
-            : "";
+      const letter =
+        document.getElementById("profileLetter");
 
-        if (name === "") {
+      const name =
+        storeSettings.storeName || "My Store";
 
-          alert("Please enter a store name.");
-
-          return;
-        }
-
-        storeSettings = {
-
-          storeName: name,
-
-          ownerName:
-            ownerNameInput
-              ? ownerNameInput.value.trim()
-              : "",
-
-          phone:
-            storePhoneInput
-              ? storePhoneInput.value.trim()
-              : "",
-
-          email:
-            storeEmailInput
-              ? storeEmailInput.value.trim()
-              : "",
-
-          address:
-            storeAddressInput
-              ? storeAddressInput.value.trim()
-              : "",
-
-          city:
-            storeCityInput
-              ? storeCityInput.value.trim()
-              : ""
-        };
-
-        saveStoreSettings();
-
-        updateStoreTitle();
-
-        const message =
-          document.getElementById("storeSaveMessage");
-
-        if (message) {
-
-          message.textContent =
-            "✅ Store information saved!";
-
-          setTimeout(function () {
-            message.textContent = "";
-          }, 3000);
-        }
-
-        alert("✅ Store information saved!");
+      if (title) {
+        title.textContent = name;
       }
-    );
-  }
 
-
-  // ========================================
-  // ADD PRODUCT
-  // ========================================
-
-  if (addProductButton) {
-
-    addProductButton.addEventListener(
-      "click",
-      function () {
-
-        const name =
-          productName.value.trim();
-
-        const retail =
-          Number(retailPrice.value);
-
-        const wholesale =
-          Number(wholesalePrice.value);
-
-        const stock =
-          Number(productStock.value);
-
-        if (name === "") {
-          alert("Please enter product name.");
-          return;
-        }
-
-        if (retail <= 0) {
-          alert("Please enter a valid retail price.");
-          return;
-        }
-
-        if (wholesale <= 0) {
-          alert("Please enter a valid wholesale price.");
-          return;
-        }
-
-        if (stock < 0 || isNaN(stock)) {
-          alert("Please enter a valid quantity.");
-          return;
-        }
-
-        products.push({
-
-          id: Date.now(),
-
-          name: name,
-
-          retailPrice: retail,
-
-          wholesalePrice: wholesale,
-
-          stock: stock
-
-        });
-
-        saveData();
-
-        productName.value = "";
-        retailPrice.value = "";
-        wholesalePrice.value = "";
-        productStock.value = "";
-
-        showProducts();
-        showSaleProducts();
-
-        alert("✅ Product added successfully!");
+      if (letter) {
+        letter.textContent =
+          name.charAt(0).toUpperCase();
       }
-    );
-  }
 
-
-  // ========================================
-  // SHOW PRODUCTS
-  // ========================================
-
-  function showProducts() {
-
-    const list =
-      document.getElementById("productList");
-
-    if (!list) return;
-
-    const query =
-      inventorySearch
-        ? inventorySearch.value.trim().toLowerCase()
-        : "";
-
-    const filtered =
-      products.filter(function (product) {
-
-        return product.name
-          .toLowerCase()
-          .includes(query);
-
-      });
-
-    list.innerHTML = "";
-
-    if (filtered.length === 0) {
-
-      list.innerHTML =
-        '<p class="empty">No products found.</p>';
-
-      updateDashboard();
-
-      return;
+      document.title =
+        name + " POS";
     }
 
-    filtered.forEach(function (product) {
 
-      const index =
-        products.indexOf(product);
+    function loadStoreSettings() {
 
-      const stock =
-        Number(product.stock);
+      if (storeNameInput) {
+        storeNameInput.value =
+          storeSettings.storeName || "";
+      }
+
+      if (ownerNameInput) {
+        ownerNameInput.value =
+          storeSettings.ownerName || "";
+      }
+
+      if (storePhoneInput) {
+        storePhoneInput.value =
+          storeSettings.phone || "";
+      }
+
+      if (storeEmailInput) {
+        storeEmailInput.value =
+          storeSettings.email || "";
+      }
+
+      if (storeAddressInput) {
+        storeAddressInput.value =
+          storeSettings.address || "";
+      }
+
+      if (storeCityInput) {
+        storeCityInput.value =
+          storeSettings.city || "";
+      }
+
+      updateStoreTitle();
+    }
+
+
+    // ========================================
+    // SAVE STORE SETTINGS
+    // ========================================
+
+    if (saveStoreButton) {
+
+      saveStoreButton.addEventListener(
+        "click",
+        function() {
+
+          const name =
+            storeNameInput
+              ? storeNameInput.value.trim()
+              : "";
+
+          if (!name) {
+            alert("Please enter a store name.");
+            return;
+          }
+
+          storeSettings = {
+            storeName: name,
+
+            ownerName:
+              ownerNameInput
+                ? ownerNameInput.value.trim()
+                : "",
+
+            phone:
+              storePhoneInput
+                ? storePhoneInput.value.trim()
+                : "",
+
+            email:
+              storeEmailInput
+                ? storeEmailInput.value.trim()
+                : "",
+
+            address:
+              storeAddressInput
+                ? storeAddressInput.value.trim()
+                : "",
+
+            city:
+              storeCityInput
+                ? storeCityInput.value.trim()
+                : ""
+          };
+
+          saveStoreSettings();
+          updateStoreTitle();
+
+          const message =
+            document.getElementById(
+              "storeSaveMessage"
+            );
+
+          if (message) {
+            message.textContent =
+              "✅ Business information saved.";
+
+            setTimeout(function() {
+              message.textContent = "";
+            }, 3000);
+          }
+        }
+      );
+    }
+
+
+    // ========================================
+    // ADD PRODUCT
+    // ========================================
+
+    if (addProductButton) {
+
+      addProductButton.addEventListener(
+        "click",
+        function() {
+
+          const name =
+            productName.value.trim();
+
+          const retail =
+            Number(retailPrice.value);
+
+          const wholesale =
+            Number(wholesalePrice.value);
+
+          const stock =
+            Number(productStock.value);
+
+          if (!name) {
+            alert("Please enter product name.");
+            return;
+          }
+
+          if (retail <= 0) {
+            alert("Please enter a valid retail price.");
+            return;
+          }
+
+          if (wholesale <= 0) {
+            alert("Please enter a valid wholesale price.");
+            return;
+          }
+
+          if (stock < 0 || isNaN(stock)) {
+            alert("Please enter a valid quantity.");
+            return;
+          }
+
+          products.push({
+            id: Date.now(),
+            name: name,
+            retailPrice: retail,
+            wholesalePrice: wholesale,
+            stock: stock
+          });
+
+          saveData();
+
+          productName.value = "";
+          retailPrice.value = "";
+          wholesalePrice.value = "";
+          productStock.value = "";
+
+          showProducts();
+          renderSaleProducts();
+          renderHomeSaleProducts();
+
+          alert("✅ Product added successfully!");
+        }
+      );
+    }
+
+
+    // ========================================
+    // PRODUCTS
+    // ========================================
+
+    function productHTML(product, index) {
+
+      const stock = Number(product.stock);
 
       let stockClass = "good";
       let stockText = "🟢 In stock";
 
       if (stock <= 0) {
-
         stockClass = "low";
         stockText = "🔴 Out of stock";
-
       } else if (stock <= 5) {
-
         stockClass = "low";
         stockText = "🟠 Low stock";
       }
 
-      list.innerHTML += `
-
+      return `
         <div class="product-card">
 
           <div class="product-top">
@@ -428,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>
 
               <div class="product-name">
-                ${product.name}
+                ${escapeHTML(product.name)}
               </div>
 
               <div class="product-price">
@@ -469,209 +454,193 @@ document.addEventListener("DOMContentLoaded", function () {
           </button>
 
         </div>
-
       `;
-    });
-
-    updateDashboard();
-  }
+    }
 
 
-  // ========================================
-  // DELETE PRODUCT
-  // ========================================
+    function showProducts(listData) {
 
-  window.deleteProduct =
-    function (index) {
+      const list =
+        document.getElementById("productList");
 
-      const product = products[index];
+      if (!list) return;
 
-      if (!product) return;
+      const data =
+        listData || products;
 
-      if (!confirm(`Delete "${product.name}"?`)) {
+      if (data.length === 0) {
+
+        list.innerHTML =
+          '<p class="empty">No products added yet.</p>';
+
+        updateDashboard();
         return;
       }
 
-      products.splice(index, 1);
+      list.innerHTML =
+        data.map(function(product) {
 
-      saveData();
+          const originalIndex =
+            products.indexOf(product);
 
-      showProducts();
-      showSaleProducts();
-    };
+          return productHTML(
+            product,
+            originalIndex
+          );
 
+        }).join("");
 
-  // ========================================
-  // TODAY'S SALES
-  // ========================================
-
-  function showTodaySales() {
-
-    const today =
-      new Date().toDateString();
-
-    let total = 0;
-
-    sales.forEach(function (sale) {
-
-      if (
-        new Date(sale.date).toDateString() === today
-      ) {
-
-        total += Number(sale.total);
-      }
-    });
-
-    const salesTotal =
-      document.getElementById("salesTotal");
-
-    if (salesTotal) {
-
-      salesTotal.textContent =
-        "₦" + total.toLocaleString();
-    }
-  }
-
-
-  // ========================================
-  // PRODUCT SEARCH
-  // ========================================
-
-  if (productSearch) {
-
-    productSearch.addEventListener(
-      "input",
-      showSaleProducts
-    );
-  }
-
-
-  if (saleType) {
-
-    saleType.addEventListener(
-      "change",
-      showSaleProducts
-    );
-  }
-
-
-  if (inventorySearch) {
-
-    inventorySearch.addEventListener(
-      "input",
-      showProducts
-    );
-  }
-
-
-  // ========================================
-  // SHOW SALE PRODUCTS
-  // ========================================
-
-  function showSaleProducts() {
-
-    const box =
-      document.getElementById("saleProducts");
-
-    if (!box) return;
-
-    const search =
-      productSearch
-        ? productSearch.value.trim().toLowerCase()
-        : "";
-
-    box.innerHTML = "";
-
-    const results =
-      products.filter(function (product) {
-
-        return product.name
-          .toLowerCase()
-          .includes(search);
-
-      });
-
-    if (results.length === 0) {
-
-      box.innerHTML =
-        '<p class="empty">No matching product found.</p>';
-
-      return;
+      updateDashboard();
     }
 
-    results.forEach(function (product) {
 
-      const index =
-        products.indexOf(product);
+    window.deleteProduct =
+      function(index) {
 
-      const price =
-        saleType && saleType.value === "wholesale"
-          ? Number(product.wholesalePrice)
-          : Number(product.retailPrice);
+        const product = products[index];
 
-      const disabled =
-        Number(product.stock) <= 0
-          ? "disabled"
+        if (!product) return;
+
+        if (
+          !confirm(
+            `Delete "${product.name}"?`
+          )
+        ) {
+          return;
+        }
+
+        products.splice(index, 1);
+
+        saveData();
+
+        showProducts();
+        renderSaleProducts();
+        renderHomeSaleProducts();
+      };
+
+
+    // ========================================
+    // SALE PRODUCTS
+    // ========================================
+
+    function renderSaleProducts() {
+
+      const box =
+        document.getElementById("saleProducts");
+
+      if (!box) return;
+
+      const search =
+        productSearch
+          ? productSearch.value
+              .trim()
+              .toLowerCase()
           : "";
-
-      box.innerHTML += `
-
-        <div class="sale-product">
-
-          <div class="sale-product-info">
-
-            <strong>
-              ${product.name}
-            </strong>
-
-            <small>
-              ₦${price.toLocaleString()}
-              • Stock: ${product.stock}
-            </small>
-
-          </div>
-
-          <button
-            class="add-button"
-            onclick="addToCart(${index})"
-            ${disabled}
-          >
-            ${
-              Number(product.stock) <= 0
-              ? "Out of Stock"
-              : "+ Add"
-            }
-          </button>
-
-        </div>
-
-      `;
-    });
-  }
-
-
-  // ========================================
-  // ADD TO CART
-  // ========================================
-
-  window.addToCart =
-    function (index) {
-
-      const product = products[index];
-
-      if (!product) return;
-
-      if (Number(product.stock) <= 0) {
-
-        alert("This product is out of stock.");
-
-        return;
-      }
 
       const type =
         saleType
           ? saleType.value
           : "retail";
+
+      const results =
+        products.filter(function(product) {
+
+          return product.name
+            .toLowerCase()
+            .includes(search);
+
+        });
+
+      if (results.length === 0) {
+
+        box.innerHTML =
+          '<p class="empty">No matching product found.</p>';
+
+        return;
+      }
+
+      box.innerHTML =
+        results.map(function(product) {
+
+          const index =
+            products.indexOf(product);
+
+          const price =
+            type === "wholesale"
+              ? Number(product.wholesalePrice)
+              : Number(product.retailPrice);
+
+          const disabled =
+            Number(product.stock) <= 0
+              ? "disabled"
+              : "";
+
+          return `
+            <div class="sale-product">
+
+              <div class="sale-product-info">
+
+                <strong>
+                  ${escapeHTML(product.name)}
+                </strong>
+
+                <small>
+                  ₦${price.toLocaleString()}
+                  • Stock: ${product.stock}
+                </small>
+
+              </div>
+
+              <button
+                class="add-button"
+                onclick="addToCart(${index})"
+                ${disabled}
+              >
+                ${
+                  Number(product.stock) <= 0
+                    ? "Out of Stock"
+                    : "+ Add"
+                }
+              </button>
+
+            </div>
+          `;
+
+        }).join("");
+    }
+
+
+    window.addToCart =
+      function(index) {
+
+        const product =
+          products[index];
+
+        if (!product) return;
+
+        if (Number(product.stock) <= 0) {
+          alert("This product is out of stock.");
+          return;
+        }
+
+        const type =
+          saleType
+            ? saleType.value
+            : "retail";
+
+        addProductToCart(
+          index,
+          type
+        );
+      };
+
+
+    function addProductToCart(index, type) {
+
+      const product =
+        products[index];
+
+      if (!product) return;
 
       const price =
         type === "wholesale"
@@ -679,7 +648,7 @@ document.addEventListener("DOMContentLoaded", function () {
           : Number(product.retailPrice);
 
       const existing =
-        cart.find(function (item) {
+        cart.find(function(item) {
 
           return (
             item.index === index &&
@@ -691,11 +660,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (existing) {
 
         if (
-          existing.quantity >= Number(product.stock)
+          existing.quantity >=
+          Number(product.stock)
         ) {
 
           alert("Not enough stock.");
-
           return;
         }
 
@@ -704,1127 +673,1369 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
 
         cart.push({
-
           index: index,
-
           name: product.name,
-
           price: price,
-
           quantity: 1,
-
           type: type
-
         });
+
       }
 
-      showCart();
-    };
-
-
-  // ========================================
-  // SHOW CART
-  // ========================================
-
-  function showCart() {
-
-    const box =
-      document.getElementById("cart");
-
-    if (!box) return;
-
-    box.innerHTML = "";
-
-    let total = 0;
-
-    if (cart.length === 0) {
-
-      box.innerHTML =
-        '<p class="empty">Cart is empty.</p>';
+      renderCart();
+      renderHomeCart();
     }
 
-    cart.forEach(function (item, index) {
 
-      const subtotal =
-        item.price * item.quantity;
+    // ========================================
+    // CART
+    // ========================================
 
-      total += subtotal;
+    function getCartTotal() {
 
-      box.innerHTML += `
+      return cart.reduce(
+        function(total, item) {
 
-        <div class="cart-item">
+          return total +
+            item.price *
+            item.quantity;
 
-          <div class="cart-row">
-
-            <strong>
-              ${item.name}
-            </strong>
-
-            <strong>
-              ₦${subtotal.toLocaleString()}
-            </strong>
-
-          </div>
-
-          <small>
-            ${
-              item.type === "wholesale"
-              ? "Wholesale"
-              : "Retail"
-            }
-            • ₦${item.price.toLocaleString()}
-          </small>
-
-          <div class="quantity-controls">
-
-            <button
-              onclick="decreaseQuantity(${index})"
-            >
-              −
-            </button>
-
-            <button>
-              ${item.quantity}
-            </button>
-
-            <button
-              onclick="increaseQuantity(${index})"
-            >
-              +
-            </button>
-
-            <button
-              onclick="removeFromCart(${index})"
-            >
-              Remove
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-    });
-
-    const cartTotal =
-      document.getElementById("cartTotal");
-
-    if (cartTotal) {
-
-      cartTotal.textContent =
-        "₦" + total.toLocaleString();
+        },
+        0
+      );
     }
 
-    calculateChange();
-  }
+
+    function renderCart() {
+
+      const box =
+        document.getElementById("cart");
+
+      if (!box) return;
+
+      if (cart.length === 0) {
+
+        box.innerHTML =
+          '<p class="empty">Cart is empty.</p>';
+
+      } else {
+
+        box.innerHTML =
+          cart.map(function(item, index) {
+
+            const subtotal =
+              item.price *
+              item.quantity;
+
+            return `
+              <div class="cart-item">
+
+                <div class="cart-row">
+
+                  <strong>
+                    ${escapeHTML(item.name)}
+                  </strong>
+
+                  <strong>
+                    ₦${subtotal.toLocaleString()}
+                  </strong>
+
+                </div>
+
+                <small>
+                  ${
+                    item.type === "wholesale"
+                      ? "Wholesale"
+                      : "Retail"
+                  }
+                  •
+                  ₦${item.price.toLocaleString()}
+                </small>
+
+                <div class="quantity-controls">
+
+                  <button
+                    onclick="decreaseQuantity(${index})"
+                  >
+                    −
+                  </button>
+
+                  <button>
+                    ${item.quantity}
+                  </button>
+
+                  <button
+                    onclick="increaseQuantity(${index})"
+                  >
+                    +
+                  </button>
+
+                  <button
+                    onclick="removeFromCart(${index})"
+                  >
+                    Remove
+                  </button>
+
+                </div>
+
+              </div>
+            `;
+
+          }).join("");
+
+      }
+
+      const total =
+        getCartTotal();
+
+      const cartTotal =
+        document.getElementById("cartTotal");
+
+      if (cartTotal) {
+        cartTotal.textContent =
+          "₦" + total.toLocaleString();
+      }
+
+      calculateChange();
+    }
 
 
-  // ========================================
-  // QUANTITY CONTROLS
-  // ========================================
+    window.increaseQuantity =
+      function(index) {
 
-  window.increaseQuantity =
-    function (index) {
+        const item = cart[index];
 
-      const item = cart[index];
+        if (!item) return;
 
-      if (!item) return;
+        const product =
+          products[item.index];
 
-      const product =
-        products[item.index];
+        if (!product) return;
 
-      if (!product) return;
+        if (
+          item.quantity >=
+          Number(product.stock)
+        ) {
+          alert("Not enough stock.");
+          return;
+        }
 
-      if (
-        item.quantity >= Number(product.stock)
-      ) {
+        item.quantity++;
 
-        alert("Not enough stock.");
+        renderCart();
+        renderHomeCart();
+      };
+
+
+    window.decreaseQuantity =
+      function(index) {
+
+        if (!cart[index]) return;
+
+        if (
+          cart[index].quantity > 1
+        ) {
+          cart[index].quantity--;
+        } else {
+          cart.splice(index, 1);
+        }
+
+        renderCart();
+        renderHomeCart();
+      };
+
+
+    window.removeFromCart =
+      function(index) {
+
+        cart.splice(index, 1);
+
+        renderCart();
+        renderHomeCart();
+      };
+
+
+    // ========================================
+    // HOME SALE PANEL
+    // ========================================
+
+    function renderHomeSaleProducts() {
+
+      const box =
+        document.getElementById(
+          "homeSaleProducts"
+        );
+
+      if (!box) return;
+
+      const searchInput =
+        document.getElementById(
+          "homeProductSearch"
+        );
+
+      const typeSelect =
+        document.getElementById(
+          "homeSaleType"
+        );
+
+      const search =
+        searchInput
+          ? searchInput.value
+              .trim()
+              .toLowerCase()
+          : "";
+
+      const type =
+        typeSelect
+          ? typeSelect.value
+          : "retail";
+
+      const results =
+        products.filter(function(product) {
+
+          return product.name
+            .toLowerCase()
+            .includes(search);
+
+        });
+
+      if (results.length === 0) {
+
+        box.innerHTML =
+          '<p class="empty">No products found.</p>';
 
         return;
       }
 
-      item.quantity++;
+      box.innerHTML =
+        results.map(function(product) {
 
-      showCart();
-    };
+          const index =
+            products.indexOf(product);
+
+          const price =
+            type === "wholesale"
+              ? Number(product.wholesalePrice)
+              : Number(product.retailPrice);
+
+          const disabled =
+            Number(product.stock) <= 0
+              ? "disabled"
+              : "";
+
+          return `
+            <div class="sale-product">
+
+              <div class="sale-product-info">
+
+                <strong>
+                  ${escapeHTML(product.name)}
+                </strong>
+
+                <small>
+                  ₦${price.toLocaleString()}
+                  • Stock: ${product.stock}
+                </small>
+
+              </div>
+
+              <button
+                class="add-button"
+                onclick="addHomeToCart(${index})"
+                ${disabled}
+              >
+                ${
+                  Number(product.stock) <= 0
+                    ? "Out of Stock"
+                    : "+ Add"
+                }
+              </button>
+
+            </div>
+          `;
+
+        }).join("");
+    }
 
 
-  window.decreaseQuantity =
-    function (index) {
+    window.addHomeToCart =
+      function(index) {
 
-      if (!cart[index]) return;
+        const typeSelect =
+          document.getElementById(
+            "homeSaleType"
+          );
 
-      if (cart[index].quantity > 1) {
+        const type =
+          typeSelect
+            ? typeSelect.value
+            : "retail";
 
-        cart[index].quantity--;
+        addProductToCart(
+          index,
+          type
+        );
+      };
+
+
+    function renderHomeCart() {
+
+      const box =
+        document.getElementById(
+          "homeCart"
+        );
+
+      const totalBox =
+        document.getElementById(
+          "homeCartTotal"
+        );
+
+      if (!box) return;
+
+      const total =
+        getCartTotal();
+
+      if (totalBox) {
+
+        totalBox.textContent =
+          "Total: ₦" +
+          total.toLocaleString();
+      }
+
+      if (cart.length === 0) {
+
+        box.innerHTML = `
+          <div class="cart-empty-icon">
+            🛒
+          </div>
+
+          <strong>Your cart is empty</strong>
+
+          <small>
+            Add products to get started
+          </small>
+        `;
+
+        return;
+      }
+
+      box.innerHTML =
+        cart.map(function(item, index) {
+
+          return `
+            <div
+              style="
+                width:100%;
+                display:flex;
+                justify-content:space-between;
+                gap:10px;
+                margin:5px 0;
+              "
+            >
+
+              <span>
+                ${escapeHTML(item.name)}
+                × ${item.quantity}
+              </span>
+
+              <strong>
+                ₦${(
+                  item.price *
+                  item.quantity
+                ).toLocaleString()}
+              </strong>
+
+            </div>
+          `;
+
+        }).join("");
+    }
+
+
+    const homeSearch =
+      document.getElementById(
+        "homeProductSearch"
+      );
+
+    const homeType =
+      document.getElementById(
+        "homeSaleType"
+      );
+
+    if (homeSearch) {
+
+      homeSearch.addEventListener(
+        "input",
+        renderHomeSaleProducts
+      );
+
+    }
+
+    if (homeType) {
+
+      homeType.addEventListener(
+        "change",
+        renderHomeSaleProducts
+      );
+
+    }
+
+
+    // ========================================
+    // SEARCH
+    // ========================================
+
+    if (productSearch) {
+
+      productSearch.addEventListener(
+        "input",
+        renderSaleProducts
+      );
+
+    }
+
+    if (saleType) {
+
+      saleType.addEventListener(
+        "change",
+        renderSaleProducts
+      );
+
+    }
+
+    if (inventorySearch) {
+
+      inventorySearch.addEventListener(
+        "input",
+        function() {
+
+          const query =
+            inventorySearch.value
+              .trim()
+              .toLowerCase();
+
+          const filtered =
+            products.filter(function(product) {
+
+              return product.name
+                .toLowerCase()
+                .includes(query);
+
+            });
+
+          showProducts(filtered);
+        }
+      );
+
+    }
+
+
+    // ========================================
+    // PAYMENT / CHANGE
+    // ========================================
+
+    function calculateChange() {
+
+      const changeDisplay =
+        document.getElementById(
+          "changeDisplay"
+        );
+
+      if (!changeDisplay) return;
+
+      const total =
+        getCartTotal();
+
+      const paid =
+        amountPaid
+          ? Number(amountPaid.value)
+          : 0;
+
+      if (
+        paid <= 0 ||
+        total <= 0
+      ) {
+        changeDisplay.innerHTML = "";
+        return;
+      }
+
+      if (paid < total) {
+
+        changeDisplay.innerHTML = `
+          <strong style="color:#dc2626;">
+            Amount remaining:
+            ₦${(
+              total - paid
+            ).toLocaleString()}
+          </strong>
+        `;
 
       } else {
 
-        cart.splice(index, 1);
+        changeDisplay.innerHTML = `
+          <strong style="color:#168344;">
+            Change:
+            ₦${(
+              paid - total
+            ).toLocaleString()}
+          </strong>
+        `;
       }
-
-      showCart();
-    };
-
-
-  window.removeFromCart =
-    function (index) {
-
-      cart.splice(index, 1);
-
-      showCart();
-    };
-
-
-  // ========================================
-  // CART TOTAL
-  // ========================================
-
-  function getCartTotal() {
-
-    let total = 0;
-
-    cart.forEach(function (item) {
-
-      total +=
-        item.price * item.quantity;
-
-    });
-
-    return total;
-  }
-
-
-  // ========================================
-  // CHANGE
-  // ========================================
-
-  function calculateChange() {
-
-    const changeDisplay =
-      document.getElementById("changeDisplay");
-
-    if (!changeDisplay) return;
-
-    const total =
-      getCartTotal();
-
-    const paid =
-      amountPaid
-        ? Number(amountPaid.value)
-        : 0;
-
-    if (
-      paid <= 0 ||
-      total <= 0
-    ) {
-
-      changeDisplay.innerHTML = "";
-
-      return;
     }
 
-    if (paid < total) {
 
-      const remaining =
-        total - paid;
+    if (amountPaid) {
 
-      changeDisplay.innerHTML = `
+      amountPaid.addEventListener(
+        "input",
+        calculateChange
+      );
 
-        <strong style="color:#dc2626;">
-          Amount remaining:
-          ₦${remaining.toLocaleString()}
-        </strong>
-
-      `;
-
-    } else {
-
-      const change =
-        paid - total;
-
-      changeDisplay.innerHTML = `
-
-        <strong style="color:#16a34a;">
-          Change:
-          ₦${change.toLocaleString()}
-        </strong>
-
-      `;
     }
-  }
 
 
-  if (amountPaid) {
+    // ========================================
+    // COMPLETE SALE
+    // ========================================
 
-    amountPaid.addEventListener(
-      "input",
-      calculateChange
-    );
-  }
+    if (completeSaleButton) {
 
+      completeSaleButton.addEventListener(
+        "click",
+        function() {
 
-  // ========================================
-  // COMPLETE SALE
-  // ========================================
-
-  if (completeSaleButton) {
-
-    completeSaleButton.addEventListener(
-      "click",
-      function () {
-
-        if (cart.length === 0) {
-
-          alert("Your cart is empty.");
-
-          return;
-        }
-
-        const name =
-          customerName
-            ? customerName.value.trim()
-            : "";
-
-        const phone =
-          customerPhone
-            ? customerPhone.value.trim()
-            : "";
-
-        if (name === "") {
-
-          alert("Please enter customer name.");
-
-          return;
-        }
-
-        if (phone === "") {
-
-          alert("Please enter customer phone number.");
-
-          return;
-        }
-
-        const total =
-          getCartTotal();
-
-        const paid =
-          amountPaid
-            ? Number(amountPaid.value)
-            : 0;
-
-        if (
-          isNaN(paid) ||
-          paid < total
-        ) {
-
-          alert(
-            "Amount paid is not enough.\n\n" +
-            "Total: ₦" +
-            total.toLocaleString()
-          );
-
-          return;
-        }
-
-        const change =
-          paid - total;
-
-        const selectedPaymentMethod =
-          paymentMethod
-            ? paymentMethod.value
-            : "Cash";
-
-
-        // REDUCE STOCK
-
-        cart.forEach(function (item) {
-
-          if (products[item.index]) {
-
-            products[item.index].stock -=
-              item.quantity;
-
+          if (cart.length === 0) {
+            alert("Your cart is empty.");
+            return;
           }
 
-        });
+          const name =
+            customerName.value.trim();
+
+          const phone =
+            customerPhone.value.trim();
+
+          if (!name) {
+            alert("Please enter customer name.");
+            return;
+          }
+
+          if (!phone) {
+            alert(
+              "Please enter customer phone number."
+            );
+            return;
+          }
+
+          const total =
+            getCartTotal();
+
+          const paid =
+            Number(amountPaid.value);
+
+          if (
+            isNaN(paid) ||
+            paid < total
+          ) {
+
+            alert(
+              "Amount paid is not enough.\n\n" +
+              "Total: ₦" +
+              total.toLocaleString()
+            );
+
+            return;
+          }
+
+          const change =
+            paid - total;
+
+          const paymentMethod =
+            document.getElementById(
+              "paymentMethod"
+            );
+
+          const selectedPayment =
+            paymentMethod
+              ? paymentMethod.value
+              : "Cash";
 
 
-        // CREATE SALE
+          // REDUCE STOCK
 
-        const sale = {
+          cart.forEach(function(item) {
 
-          id: Date.now(),
+            if (products[item.index]) {
 
-          date: new Date().toISOString(),
+              products[item.index].stock -=
+                item.quantity;
 
-          customerName: name,
-
-          customerPhone: phone,
-
-          paymentMethod:
-            selectedPaymentMethod,
-
-          items:
-            cart.map(function (item) {
-
-              return {
-
-                name: item.name,
-
-                price: item.price,
-
-                quantity: item.quantity,
-
-                type: item.type
-
-              };
-
-            }),
-
-          total: total,
-
-          paid: paid,
-
-          change: change
-        };
-
-
-        sales.unshift(sale);
-
-        saveData();
-
-
-        // RECEIPT ITEMS
-
-        let receiptItems = "";
-
-        cart.forEach(function (item) {
-
-          const subtotal =
-            item.price * item.quantity;
-
-          receiptItems += `
-
-            <div class="receipt-line">
-
-              <span>
-                ${item.name} × ${item.quantity}
-              </span>
-
-              <span>
-                ₦${subtotal.toLocaleString()}
-              </span>
-
-            </div>
-
-          `;
-        });
-
-
-        // RECEIPT
-
-        const receipt =
-          document.getElementById("receipt");
-
-        if (receipt) {
-
-          receipt.innerHTML = `
-
-            <h2>
-              ${storeSettings.storeName || "My Store"}
-            </h2>
-
-            ${
-              storeSettings.ownerName
-              ? `<p>${storeSettings.ownerName}</p>`
-              : ""
             }
 
-            ${
-              storeSettings.address
-              ? `<p>${storeSettings.address}</p>`
-              : ""
-            }
-
-            ${
-              storeSettings.city
-              ? `<p>${storeSettings.city}</p>`
-              : ""
-            }
-
-            ${
-              storeSettings.phone
-              ? `<p>${storeSettings.phone}</p>`
-              : ""
-            }
-
-            ${
-              storeSettings.email
-              ? `<p>${storeSettings.email}</p>`
-              : ""
-            }
-
-            <p>
-              <strong>SALES RECEIPT</strong>
-            </p>
-
-            <hr>
-
-            <p>
-              <strong>Customer:</strong>
-              ${name}
-            </p>
-
-            <p>
-              <strong>Phone:</strong>
-              ${phone}
-            </p>
-
-            <p>
-              <strong>Payment:</strong>
-              ${selectedPaymentMethod}
-            </p>
-
-            <p>
-              <strong>Date:</strong>
-              ${new Date().toLocaleString()}
-            </p>
-
-            <hr>
-
-            ${receiptItems}
-
-            <div class="receipt-total">
-
-              <div class="receipt-line">
-                <span>TOTAL</span>
-                <span>
-                  ₦${total.toLocaleString()}
-                </span>
-              </div>
-
-              <div class="receipt-line">
-                <span>PAID</span>
-                <span>
-                  ₦${paid.toLocaleString()}
-                </span>
-              </div>
-
-              <div class="receipt-line">
-                <span>PAYMENT</span>
-                <span>
-                  ${selectedPaymentMethod}
-                </span>
-              </div>
-
-              <div class="receipt-line">
-                <span>CHANGE</span>
-                <span>
-                  ₦${change.toLocaleString()}
-                </span>
-              </div>
-
-            </div>
-
-            <p>
-              Thank you for shopping with us! ❤️
-            </p>
-
-            <button onclick="printReceipt()">
-              🖨️ Print Receipt
-            </button>
-
-          `;
-
-          receipt.style.display = "block";
-        }
+          });
 
 
-        // CLEAR FORM
+          // SAVE SALE
 
-        cart = [];
+          const sale = {
 
-        if (customerName) {
+            id: Date.now(),
+
+            date:
+              new Date().toISOString(),
+
+            customerName:
+              name,
+
+            customerPhone:
+              phone,
+
+            paymentMethod:
+              selectedPayment,
+
+            items:
+              cart.map(function(item) {
+
+                return {
+                  name: item.name,
+                  price: item.price,
+                  quantity: item.quantity,
+                  type: item.type
+                };
+
+              }),
+
+            total: total,
+
+            paid: paid,
+
+            change: change
+
+          };
+
+          sales.unshift(sale);
+
+          saveData();
+
+          showReceipt(
+            sale,
+            selectedPayment
+          );
+
+
+          // RESET
+
+          cart = [];
+
           customerName.value = "";
-        }
-
-        if (customerPhone) {
           customerPhone.value = "";
-        }
-
-        if (amountPaid) {
           amountPaid.value = "";
+
+          if (paymentMethod) {
+            paymentMethod.value = "Cash";
+          }
+
+          renderCart();
+          renderHomeCart();
+          showProducts();
+          renderSaleProducts();
+          renderHomeSaleProducts();
+          showTodaySales();
+          showSalesHistory();
+          updateDashboard();
+
+          alert(
+            "✅ Sale completed successfully!"
+          );
         }
-
-        if (paymentMethod) {
-          paymentMethod.value = "Cash";
-        }
-
-        showCart();
-        showProducts();
-        showSaleProducts();
-        showTodaySales();
-        showSalesHistory();
-        updateDashboard();
-
-        alert("✅ Sale completed successfully!");
-      }
-    );
-  }
-
-
-  // ========================================
-  // CUSTOMER SEARCH
-  // ========================================
-
-  if (customerSearch) {
-
-    customerSearch.addEventListener(
-      "input",
-      showCustomerHistory
-    );
-  }
-
-
-  function showCustomerHistory() {
-
-    const box =
-      document.getElementById("customerHistory");
-
-    if (!box) return;
-
-    const search =
-      customerSearch.value
-        .trim()
-        .toLowerCase();
-
-    if (search === "") {
-
-      box.innerHTML =
-        '<p class="empty">Search for a customer to view history.</p>';
-
-      return;
+      );
     }
 
-    const found =
-      sales.filter(function (sale) {
 
-        const name =
-          String(sale.customerName || "")
-            .toLowerCase();
+    // ========================================
+    // CUSTOMER SEARCH
+    // ========================================
 
-        const phone =
-          String(sale.customerPhone || "")
-            .toLowerCase();
+    if (customerSearch) {
 
-        return (
-          name.includes(search) ||
-          phone.includes(search)
+      customerSearch.addEventListener(
+        "input",
+        showCustomerHistory
+      );
+
+    }
+
+
+    function showCustomerHistory() {
+
+      const box =
+        document.getElementById(
+          "customerHistory"
         );
 
+      if (!box) return;
+
+      const search =
+        customerSearch.value
+          .trim()
+          .toLowerCase();
+
+      if (!search) {
+
+        box.innerHTML =
+          '<p class="empty">Search for a customer to view history.</p>';
+
+        return;
+      }
+
+      const found =
+        sales.filter(function(sale) {
+
+          const name =
+            String(
+              sale.customerName || ""
+            ).toLowerCase();
+
+          const phone =
+            String(
+              sale.customerPhone || ""
+            ).toLowerCase();
+
+          return (
+            name.includes(search) ||
+            phone.includes(search)
+          );
+
+        });
+
+      if (found.length === 0) {
+
+        box.innerHTML =
+          '<p class="empty">No customer history found.</p>';
+
+        return;
+      }
+
+      let totalSpent = 0;
+
+      found.forEach(function(sale) {
+        totalSpent += Number(sale.total);
       });
 
-    if (found.length === 0) {
-
-      box.innerHTML =
-        '<p class="empty">No customer history found.</p>';
-
-      return;
-    }
-
-    let totalSpent = 0;
-
-    found.forEach(function (sale) {
-
-      totalSpent += Number(sale.total);
-
-    });
-
-    let html = `
-
-      <div class="history-card">
-
-        <h3>
-          👤 ${found[0].customerName}
-        </h3>
-
-        <p>
-          Phone:
-          ${found[0].customerPhone}
-        </p>
-
-        <p>
-          <strong>Purchases:</strong>
-          ${found.length}
-
-          <br><br>
-
-          <strong>Total Spent:</strong>
-          ₦${totalSpent.toLocaleString()}
-        </p>
-
-      </div>
-
-    `;
-
-    found.forEach(function (sale) {
-
-      const date =
-        new Date(sale.date);
-
-      let items = "";
-
-      sale.items.forEach(function (item) {
-
-        items += `
-
-          ${item.name}
-          × ${item.quantity}
-          —
-          ₦${(
-            item.price *
-            item.quantity
-          ).toLocaleString()}
-
-          <br>
-
-        `;
-      });
-
-      html += `
-
+      let html = `
         <div class="history-card">
 
-          <strong>
-            📅 ${date.toLocaleDateString()}
-          </strong>
+          <h3>
+            👤 ${escapeHTML(found[0].customerName)}
+          </h3>
 
-          <br><br>
+          <p>
+            Phone:
+            ${escapeHTML(found[0].customerPhone)}
+          </p>
 
-          ${items}
+          <p>
+            <strong>Purchases:</strong>
+            ${found.length}
+          </p>
 
-          <br>
-
-          <strong>
-            Total:
-            ₦${Number(sale.total).toLocaleString()}
-          </strong>
-
-          <br>
-
-          Payment:
-          ${sale.paymentMethod || "Cash"}
+          <p>
+            <strong>Total Spent:</strong>
+            ₦${totalSpent.toLocaleString()}
+          </p>
 
         </div>
-
       `;
-    });
 
-    box.innerHTML = html;
-  }
+      found.forEach(function(sale) {
 
+        let items = "";
 
-  // ========================================
-  // SALES HISTORY
-  // ========================================
+        sale.items.forEach(function(item) {
 
-  function showSalesHistory() {
+          items += `
+            ${escapeHTML(item.name)}
+            × ${item.quantity}
+            —
+            ₦${(
+              item.price *
+              item.quantity
+            ).toLocaleString()}
+            <br>
+          `;
 
-    const box =
-      document.getElementById("salesHistory");
+        });
 
-    if (!box) return;
+        html += `
+          <div class="history-card">
 
-    box.innerHTML = "";
+            <strong>
+              📅
+              ${new Date(
+                sale.date
+              ).toLocaleString()}
+            </strong>
 
-    if (sales.length === 0) {
+            <br><br>
 
-      box.innerHTML =
-        '<p class="empty">No sales yet.</p>';
-
-      return;
-    }
-
-    sales.forEach(function (sale) {
-
-      const date =
-        new Date(sale.date);
-
-      let items = "";
-
-      sale.items.forEach(function (item) {
-
-        items +=
-          item.name +
-          " × " +
-          item.quantity +
-          "<br>";
-
-      });
-
-      box.innerHTML += `
-
-        <div class="history-card">
-
-          <strong>
-
-            🧾 Sale —
-            ${date.toLocaleDateString()}
-            ${date.toLocaleTimeString(
-              [],
-              {
-                hour: "2-digit",
-                minute: "2-digit"
-              }
-            )}
-
-          </strong>
-
-          <small>
-
-            Customer:
-            ${sale.customerName}
+            ${items}
 
             <br>
 
-            Phone:
-            ${sale.customerPhone}
+            <strong>
+              Total:
+              ₦${Number(
+                sale.total
+              ).toLocaleString()}
+            </strong>
 
             <br>
 
             Payment:
-            ${sale.paymentMethod || "Cash"}
+            ${escapeHTML(
+              sale.paymentMethod || "Cash"
+            )}
 
-          </small>
-
-          <br>
-
-          ${items}
-
-          <br>
-
-          <strong>
-
-            Total:
-            ₦${Number(sale.total).toLocaleString()}
-
-          </strong>
-
-          <br>
-
-          Paid:
-          ₦${Number(sale.paid).toLocaleString()}
-
-          <br>
-
-          Change:
-          ₦${Number(sale.change).toLocaleString()}
-
-        </div>
-
-      `;
-    });
-  }
-
-
-  // ========================================
-  // DASHBOARD
-  // ========================================
-
-  function updateDashboard() {
-
-    const transactionCount =
-      document.getElementById("transactionCount");
-
-    const customerCount =
-      document.getElementById("customerCount");
-
-    const productCount =
-      document.getElementById("productCount");
-
-    const lowStock =
-      document.getElementById("lowStock");
-
-    if (transactionCount) {
-      transactionCount.textContent =
-        sales.length;
-    }
-
-    if (customerCount) {
-
-      const customers = new Set();
-
-      sales.forEach(function (sale) {
-
-        if (sale.customerPhone) {
-
-          customers.add(
-            sale.customerPhone
-          );
-
-        } else if (sale.customerName) {
-
-          customers.add(
-            sale.customerName
-          );
-
-        }
-
+          </div>
+        `;
       });
 
-      customerCount.textContent =
-        customers.size;
+      box.innerHTML = html;
     }
 
-    if (productCount) {
 
-      productCount.textContent =
-        products.length;
-    }
+    // ========================================
+    // SALES HISTORY
+    // ========================================
 
-    if (lowStock) {
+    function showSalesHistory() {
 
-      lowStock.textContent =
-        products.filter(function (product) {
-
-          return Number(product.stock) <= 5;
-
-        }).length;
-    }
-  }
-
-
-  // ========================================
-  // PRINT RECEIPT
-  // ========================================
-
-  window.printReceipt =
-    function () {
-
-      const receipt =
-        document.getElementById("receipt");
-
-      if (!receipt) return;
-
-      const printWindow =
-        window.open("", "_blank");
-
-      if (!printWindow) {
-
-        alert(
-          "Please allow pop-ups to print the receipt."
+      const box =
+        document.getElementById(
+          "salesHistory"
         );
+
+      if (!box) return;
+
+      if (sales.length === 0) {
+
+        box.innerHTML =
+          '<p class="empty">No sales yet.</p>';
 
         return;
       }
 
-      printWindow.document.write(`
+      box.innerHTML =
+        sales.map(function(sale) {
 
-        <html>
+          let items = "";
 
-        <head>
+          sale.items.forEach(function(item) {
 
-          <title>
-            ${storeSettings.storeName || "Receipt"}
-          </title>
+            items += `
+              ${escapeHTML(item.name)}
+              × ${item.quantity}
+              <br>
+            `;
 
-          <style>
+          });
 
-            body {
-              font-family: Arial, sans-serif;
-              padding: 20px;
-              max-width: 400px;
-              margin: auto;
-              color: #111;
-            }
+          return `
+            <div class="history-card">
 
-            button {
-              display: none !important;
-            }
+              <strong>
+                🧾 Sale —
+                ${new Date(
+                  sale.date
+                ).toLocaleString()}
+              </strong>
 
-            .receipt-line {
-              display: flex;
-              justify-content: space-between;
-              gap: 20px;
-              margin: 10px 0;
-            }
+              <br><br>
 
-            .receipt-total {
-              border-top: 1px dashed #777;
-              padding-top: 10px;
-              margin-top: 15px;
-            }
+              Customer:
+              ${escapeHTML(
+                sale.customerName
+              )}
 
-            h2 {
-              text-align: center;
-            }
+              <br>
 
-            p {
-              text-align: center;
-            }
+              Phone:
+              ${escapeHTML(
+                sale.customerPhone
+              )}
 
-            hr {
-              border: 0;
-              border-top: 1px solid #ddd;
-            }
+              <br>
 
-          </style>
+              Payment:
+              ${escapeHTML(
+                sale.paymentMethod || "Cash"
+              )}
 
-        </head>
+              <br><br>
 
-        <body>
+              ${items}
 
-          ${receipt.innerHTML}
+              <br>
 
-        </body>
+              <strong>
+                Total:
+                ₦${Number(
+                  sale.total
+                ).toLocaleString()}
+              </strong>
 
-        </html>
+              <br>
 
-      `);
+              Paid:
+              ₦${Number(
+                sale.paid
+              ).toLocaleString()}
 
-      printWindow.document.close();
+              <br>
 
-      printWindow.focus();
+              Change:
+              ₦${Number(
+                sale.change
+              ).toLocaleString()}
 
-      setTimeout(function () {
+            </div>
+          `;
 
-        printWindow.print();
-
-      }, 300);
-    };
-
-
-  // ========================================
-  // INITIAL DISPLAY
-  // ========================================
-
-  loadStoreSettings();
-
-  showProducts();
-
-  showSaleProducts();
-
-  showCart();
-
-  showTodaySales();
-
-  showSalesHistory();
-
-  updateDashboard();
-
-});
-
-
-// ==========================================
-// PAGE NAVIGATION
-// ==========================================
-
-window.openPage =
-  function(pageId, clickedButton) {
-
-    document
-      .querySelectorAll(".page")
-      .forEach(function(page) {
-
-        page.classList.remove("active");
-
-      });
-
-    const page =
-      document.getElementById(pageId);
-
-    if (page) {
-
-      page.classList.add("active");
-
+        }).join("");
     }
 
-    document
-      .querySelectorAll(".nav-item")
-      .forEach(function(button) {
 
-        button.classList.remove("active");
+    // ========================================
+    // TODAY SALES
+    // ========================================
+
+    function showTodaySales() {
+
+      const today =
+        new Date().toDateString();
+
+      let total = 0;
+
+      sales.forEach(function(sale) {
+
+        if (
+          new Date(sale.date)
+            .toDateString() === today
+        ) {
+          total += Number(sale.total);
+        }
 
       });
 
-    if (clickedButton) {
+      const salesTotal =
+        document.getElementById(
+          "salesTotal"
+        );
 
-      clickedButton.classList.add("active");
+      if (salesTotal) {
 
-    } else {
+        salesTotal.textContent =
+          "₦" +
+          total.toLocaleString();
 
-      document
-        .querySelectorAll(".nav-item")
-        .forEach(function(button) {
+      }
+    }
 
-          const onclickText =
-            button.getAttribute("onclick") || "";
 
-          if (
-            onclickText.includes(
-              "'" + pageId + "'"
-            )
-          ) {
+    // ========================================
+    // DASHBOARD
+    // ========================================
 
-            button.classList.add("active");
+    function updateDashboard() {
+
+      const transactionCount =
+        document.getElementById(
+          "transactionCount"
+        );
+
+      const customerCount =
+        document.getElementById(
+          "customerCount"
+        );
+
+      const productCount =
+        document.getElementById(
+          "productCount"
+        );
+
+      const lowStock =
+        document.getElementById(
+          "lowStock"
+        );
+
+      if (transactionCount) {
+        transactionCount.textContent =
+          sales.length;
+      }
+
+      if (productCount) {
+        productCount.textContent =
+          products.length;
+      }
+
+      if (lowStock) {
+
+        lowStock.textContent =
+          products.filter(function(product) {
+
+            return Number(product.stock) <= 5;
+
+          }).length;
+      }
+
+      if (customerCount) {
+
+        const customers =
+          new Set();
+
+        sales.forEach(function(sale) {
+
+          if (sale.customerPhone) {
+
+            customers.add(
+              sale.customerPhone
+            );
+
+          } else if (sale.customerName) {
+
+            customers.add(
+              sale.customerName
+            );
 
           }
 
         });
 
+        customerCount.textContent =
+          customers.size;
+      }
     }
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
 
+    // ========================================
+    // RECEIPT
+    // ========================================
 
-// ==========================================
-// ADD PRODUCT BOX
-// ==========================================
+    function showReceipt(
+      sale,
+      selectedPayment
+    ) {
 
-window.showAddProduct =
-  function() {
-
-    const box =
-      document.getElementById("addProductBox");
-
-    if (!box) return;
-
-    box.classList.toggle("hidden");
-  };
-
-
-// ==========================================
-// OFFLINE APP / SERVICE WORKER
-// ==========================================
-
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener("load", function () {
-
-    navigator.serviceWorker
-      .register("./sw.js")
-      .then(function () {
-
-        console.log(
-          "✅ Offline mode enabled."
+      const receipt =
+        document.getElementById(
+          "receipt"
         );
 
-      })
-      .catch(function (error) {
+      if (!receipt) return;
 
-        console.log(
-          "Offline mode setup error:",
-          error
-        );
+      let receiptItems = "";
 
+      sale.items.forEach(function(item) {
+
+        const subtotal =
+          item.price *
+          item.quantity;
+
+        receiptItems += `
+          <div class="receipt-line">
+
+            <span>
+              ${escapeHTML(item.name)}
+              × ${item.quantity}
+            </span>
+
+            <span>
+              ₦${subtotal.toLocaleString()}
+            </span>
+
+          </div>
+        `;
       });
 
-  });
+      receipt.innerHTML = `
 
+        <h2>
+          ${escapeHTML(
+            storeSettings.storeName ||
+            "My Store"
+          )}
+        </h2>
+
+        ${
+          storeSettings.ownerName
+            ? `<p>${escapeHTML(
+                storeSettings.ownerName
+              )}</p>`
+            : ""
+        }
+
+        ${
+          storeSettings.address
+            ? `<p>${escapeHTML(
+                storeSettings.address
+              )}</p>`
+            : ""
+        }
+
+        ${
+          storeSettings.city
+            ? `<p>${escapeHTML(
+                storeSettings.city
+              )}</p>`
+            : ""
+        }
+
+        ${
+          storeSettings.phone
+            ? `<p>${escapeHTML(
+                storeSettings.phone
+              )}</p>`
+            : ""
+        }
+
+        ${
+          storeSettings.email
+            ? `<p>${escapeHTML(
+                storeSettings.email
+              )}</p>`
+            : ""
+        }
+
+        <p>
+          <strong>SALES RECEIPT</strong>
+        </p>
+
+        <hr>
+
+        <p>
+          <strong>Customer:</strong>
+          ${escapeHTML(
+            sale.customerName
+          )}
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          ${escapeHTML(
+            sale.customerPhone
+          )}
+        </p>
+
+        <p>
+          <strong>Payment:</strong>
+          ${escapeHTML(
+            selectedPayment
+          )}
+        </p>
+
+        <p>
+          <strong>Date:</strong>
+          ${new Date(
+            sale.date
+          ).toLocaleString()}
+        </p>
+
+        <hr>
+
+        ${receiptItems}
+
+        <div class="receipt-total">
+
+          <div class="receipt-line">
+            <span>TOTAL</span>
+            <span>
+              ₦${sale.total.toLocaleString()}
+            </span>
+          </div>
+
+          <div class="receipt-line">
+            <span>PAID</span>
+            <span>
+              ₦${sale.paid.toLocaleString()}
+            </span>
+          </div>
+
+          <div class="receipt-line">
+            <span>CHANGE</span>
+            <span>
+              ₦${sale.change.toLocaleString()}
+            </span>
+          </div>
+
+        </div>
+
+        <p>
+          Thank you for shopping with us! ❤️
+        </p>
+
+        <button
+          class="primary-action"
+          onclick="printReceipt()"
+        >
+          🖨️ Print Receipt
+        </button>
+
+      `;
+
+      receipt.style.display = "block";
+    }
+
+
+    window.printReceipt =
+      function() {
+
+        const receipt =
+          document.getElementById(
+            "receipt"
+          );
+
+        if (!receipt) return;
+
+        const printWindow =
+          window.open(
+            "",
+            "_blank"
+          );
+
+        if (!printWindow) {
+
+          alert(
+            "Please allow pop-ups to print the receipt."
+          );
+
+          return;
+        }
+
+        printWindow.document.write(`
+          <html>
+
+          <head>
+
+            <title>
+              ${escapeHTML(
+                storeSettings.storeName ||
+                "Receipt"
+              )}
+            </title>
+
+            <style>
+
+              body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                max-width: 400px;
+                margin: auto;
+                color: #111;
+              }
+
+              button {
+                display: none !important;
+              }
+
+              .receipt-line {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                margin: 10px 0;
+              }
+
+              .receipt-total {
+                border-top: 1px dashed #777;
+                padding-top: 10px;
+                margin-top: 15px;
+              }
+
+              h2,
+              p {
+                text-align: center;
+              }
+
+              hr {
+                border: 0;
+                border-top: 1px solid #ddd;
+              }
+
+            </style>
+
+          </head>
+
+          <body>
+
+            ${receipt.innerHTML}
+
+          </body>
+
+          </html>
+        `);
+
+        printWindow.document.close();
+        printWindow.focus();
+
+        setTimeout(function() {
+          printWindow.print();
+        }, 300);
+      };
+
+
+    // ========================================
+    // ADD PRODUCT BOX
+    // ========================================
+
+    window.showAddProduct =
+      function() {
+
+        const box =
+          document.getElementById(
+            "addProductBox"
+          );
+
+        if (!box) return;
+
+        box.classList.toggle("hidden");
+      };
+
+
+    // ========================================
+    // INITIAL LOAD
+    // ========================================
+
+    loadStoreSettings();
+
+    showProducts();
+
+    renderSaleProducts();
+
+    renderHomeSaleProducts();
+
+    renderCart();
+
+    renderHomeCart();
+
+    showTodaySales();
+
+    showSalesHistory();
+
+    updateDashboard();
+
+  }
+);
+
+
+// ==========================================
+// ESCAPE HTML
+// ==========================================
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
